@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "622610025973",
+    "firebase_url": "https://travelandtour-fd21b.firebaseio.com",
+    "project_id": "travelandtour-fd21b",
+    "storage_bucket": "travelandtour-fd21b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622610025973:android:1459c9d1c2f3492f",
+        "android_client_info": {
+          "package_name": "com.death.tnt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622610025973-jprd6u0oq40p57vt25l5q2ag6fvgt7hs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXITxvgsdSjECAA8iCaD4C7Vp0QyEU9zo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
