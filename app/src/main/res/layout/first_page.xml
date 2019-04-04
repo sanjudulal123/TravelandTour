@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#303F9F">
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false">
+
+        <requestFocus />
+    </SearchView>
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="20sp"
+        android:text="please wait while we are getting your location..."
+        android:textColor="#ffffff" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spinkit"
+        style="@style/SpinKitView.WanderingCubes"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_below="@+id/txt1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15sp"
+        app:SpinKit_Color="#010A14" />
+
+    <LinearLayout
+        android:id="@+id/ldate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinkit"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="Date"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+
+    <!--<ListView-->
+    <!--android:id="@+id/listview"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_below="@+id/search" />-->
+
+</RelativeLayout>

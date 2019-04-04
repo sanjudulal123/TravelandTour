@@ -2,4 +2,27 @@
     <string name="app_name">TravelandTour</string>
     <string name="facebook_app_id">815341902154248</string>
     <string name="fb_login_protocol_scheme">fb815341902154248</string>
+
+    <!--strings for intro-->
+    <string name="app_name1">Intro Slider</string>
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Explore Awesome Places</string>
+    <string name="slide_1_desc">The easiest way to get information of your favourite place!</string>
+
+    <string name="slide_2_title">Make Plans with Friends</string>
+    <string name="slide_2_desc">short desc</string>
+
+    <string name="slide_3_title">Plan your Trip With Others</string>
+    <string name="slide_3_desc">short desc</string>
+
+    <string name="slide_4_title">Share Locations you have Visited</string>
+    <string name="slide_4_desc">short desc</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="sign_up_with_gmail">sign up with gmail</string>\
 </resources>
