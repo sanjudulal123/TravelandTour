@@ -3,6 +3,8 @@
     <string name="facebook_app_id">815341902154248</string>
     <string name="fb_login_protocol_scheme">fb815341902154248</string>
 
+    <string name="open">drawer open</string>
+    <string name="close">drawer close</string>
     <!--strings for intro-->
     <string name="app_name1">Intro Slider</string>
     <string name="title_activity_welcome">Home Screen</string>
@@ -24,5 +26,7 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
-    <string name="sign_up_with_gmail">sign up with gmail</string>\
+    <string name="sign_up_with_gmail">sign up with gmail</string>
+    <string name="Travel">Travel</string>
+    <string name="Map">Map</string>\
 </resources>

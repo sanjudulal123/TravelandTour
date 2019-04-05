@@ -32,7 +32,7 @@ public class Nexample extends AppCompatActivity {
     LoginButton loginButton;
     CallbackManager mCallbackManager;
     String TAG = "Hey";
-    String name;
+    String name, userid, profilepictureurl, phone;
     DatabaseReference databaseReference;
 
     @Override
@@ -50,36 +50,13 @@ public class Nexample extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
 
                 Log.i(TAG, "Hello" + loginResult.getAccessToken().getToken());
-              Toast.makeText(Nexample.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_SHORT).show();
-
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(Nexample.this, "cancled", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(Nexample.this, ""+error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
+//              Toast.makeText(Nexample.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_LONG).show();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     name = user.getDisplayName();
-                    String userid = user.getUid();
-                    String profilepictureurl = user.getPhotoUrl().toString();
-                    String phone = user.getPhoneNumber();
+                    userid = user.getUid();
+                    profilepictureurl = user.getPhotoUrl().toString();
+                    phone = user.getPhoneNumber();
 
                     DataModule dm = new DataModule();
                     dm.setName(name);
@@ -91,21 +68,74 @@ public class Nexample extends AppCompatActivity {
                     databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(Nexample.this, "push Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(Nexample.this, "push Success", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Nexample.this, ""+e, Toast.LENGTH_LONG).show();
+                            Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
                         }
                     });
 
-                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Nexample.this, "something went wrong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Nexample.this, "something went wrong \n Please Try Again", Toast.LENGTH_LONG).show();
                 }
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(Nexample.this, "cancled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(Nexample.this, "" + error, Toast.LENGTH_LONG).show();
+            }
+        });
 
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//                if (user != null) {
+//                    name = user.getDisplayName();
+//                    String userid = user.getUid();
+//                    String profilepictureurl = user.getPhotoUrl().toString();
+//                    String phone = user.getPhoneNumber();
+//
+//                    DataModule dm = new DataModule();
+//                    dm.setName(name);
+//                    dm.setUserid(userid);
+//                    dm.setProfilepictureurl(profilepictureurl);
+//                    dm.setPhone(phone);
+//                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+//                            .child("user").child(userid);
+//                    databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(Nexample.this, "push Success", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Nexample.this, ""+e, Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//
+//                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(Nexample.this, "something went wrong", Toast.LENGTH_LONG).show();
+//                }
+
+
+                Toast.makeText(Nexample.this, "STATE CHANGED", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -131,10 +161,10 @@ public class Nexample extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(Nexample.this, "Success",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
-                            startActivity(intent);
+//                            Toast.makeText(Nexample.this, "Success",
+//                                    Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+//                            startActivity(intent);
 
                         } else {
                             Toast.makeText(Nexample.this, "Authentication error",

@@ -5,10 +5,10 @@
     <item
         android:id="@+id/addbooks"
         android:orderInCategory="100"
-        android:title="Add Book to favourite" />
+        android:title="Add to favourite" />
 
     <item
         android:id="@+id/removebooks"
         android:orderInCategory="101"
-        android:title="Remove Book" />
+        android:title="Remove from Favourite" />
 </menu>
