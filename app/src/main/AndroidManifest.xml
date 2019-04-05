@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Example"></activity>
         <activity android:name=".home.DashboardActivity"></activity>
 
 

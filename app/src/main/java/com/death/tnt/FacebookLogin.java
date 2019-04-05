@@ -100,10 +100,10 @@ public class FacebookLogin extends AppCompatActivity {
     }
     private void nextActivity(Profile profile) {
         if (profile != null) {
-            Intent main = new Intent(FacebookLogin.this, UserProfile.class);
-            main.putExtra("name", profile.getName());
-//            main.putExtra("surname", profile.getLastName());
-            main.putExtra("imageUrl", profile.getProfilePictureUri(200, 200).toString());
+//            Intent main = new Intent(FacebookLogin.this, UserProfile.class);
+//            main.putExtra("name", profile.getName());
+////            main.putExtra("surname", profile.getLastName());
+//            main.putExtra("imageUrl", profile.getProfilePictureUri(200, 200).toString());
         }
     }
 }

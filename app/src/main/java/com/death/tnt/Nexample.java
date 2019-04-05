@@ -50,19 +50,19 @@ public class Nexample extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
 
                 Log.i(TAG, "Hello" + loginResult.getAccessToken().getToken());
-                //  Toast.makeText(Nexample.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_SHORT).show();
+              Toast.makeText(Nexample.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_SHORT).show();
 
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-
+                Toast.makeText(Nexample.this, "cancled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(Nexample.this, ""+error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -134,6 +134,7 @@ public class Nexample extends AppCompatActivity {
                             Toast.makeText(Nexample.this, "Success",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+                            startActivity(intent);
 
                         } else {
                             Toast.makeText(Nexample.this, "Authentication error",

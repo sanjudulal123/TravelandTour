@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#010A14"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            android:background="#2C2C33"
+            android:iconifiedByDefault="false">
+
+            <requestFocus />
+        </SearchView>
+
+
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="20sp"
+            android:text="please wait while we are getting your location..."
+            android:textColor="#ffffff" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spinkit"
+            style="@style/SpinKitView.WanderingCubes"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15sp"
+            app:SpinKit_Color="#D7DBE0" />
+
+        <TextView
+            android:id="@+id/show_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="Date"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/about_current_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#042142"
+            android:padding="10sp"
+            android:text="About Current Location"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/desc_about_current_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#263246"
+            android:padding="10sp"
+            android:text="Description"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tourism_places"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#042142"
+            android:padding="10sp"
+            android:text="Places to visit nearby"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ListView
+            android:id="@+id/list_show_nearby_tourism_places"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:background="#263246" />
+
+        <TextView
+            android:id="@+id/nearby_hotels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#042142"
+            android:padding="10sp"
+            android:text="Nearby Hotels"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ListView
+            android:id="@+id/list_show_nearby_hotels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:background="#263246" />
+
+        <!--<include layout="@layout/toolbar_menu"-->
+        <!--/>-->
+
+        <TextView
+            android:id="@+id/nearby_atms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#042142"
+            android:padding="10sp"
+            android:text="Nearby Atms"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ListView
+            android:id="@+id/list_show_nearby_atms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:background="#263246" />
+
+        <TextView
+            android:id="@+id/nearby_hospitals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="15sp"
+            android:layout_weight="1"
+            android:background="#042142"
+            android:padding="10sp"
+            android:text="Nearby Hospitals"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ListView
+            android:id="@+id/list_show_nearby_hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:background="#263246" />
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/show_nearby_hotels"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="15sp"-->
+        <!--android:layout_marginEnd="15sp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="#263246"-->
+        <!--android:padding="10sp"-->
+        <!--android:text="show nearby hotels"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="20sp" />-->
+
+    </LinearLayout>
+</ScrollView>
