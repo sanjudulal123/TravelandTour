@@ -1,153 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#010A14">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#010A14"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.death.tnt.home.DashboardActivity">
 
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false">
 
-        <requestFocus />
-    </SearchView>
-
-    <TextView
-        android:id="@+id/txt1"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search"
-        android:layout_marginStart="20sp"
-        android:layout_marginTop="20sp"
-        android:text="please wait while we are getting your location..."
-        android:textColor="#ffffff" />
-
-    <com.github.ybq.android.spinkit.SpinKitView
-        android:id="@+id/spinkit"
-        style="@style/SpinKitView.WanderingCubes"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:layout_below="@+id/txt1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15sp"
-        app:SpinKit_Color="#D7DBE0" />
+        android:layout_height="190dp"
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
-        android:id="@+id/ldate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinkit"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_below="@+id/viewPager"
+        android:layout_marginTop="20sp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20sp"
-            android:layout_weight="1"
-            android:text="Date"
+            android:text="Heavens"
             android:textColor="#ffffff"
-            android:textSize="30sp" />
-    </LinearLayout>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
 
-    <LinearLayout
-        android:id="@+id/about_current_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ldate"
-        android:orientation="vertical"
-        android:weightSum="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="15sp"
-            android:layout_marginTop="20sp"
-            android:padding="10sp"
-            android:background="#042142"
-            android:layout_weight="1"
-            android:text="About Current Location"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/desc_about_current_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/about_current_location"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="15sp"
-            android:padding="10sp"
-            android:background="#263246"
-            android:layout_weight="1"
-            android:text="Description"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/nearby_hotels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/desc_about_current_location"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="15sp"
-            android:layout_marginTop="20sp"
-            android:padding="10sp"
-            android:background="#042142"
-            android:layout_weight="1"
-            android:text="Nearby Hotels"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/show_nearby_hotels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nearby_hotels"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <ListView
-            android:id="@+id/listview"
-            android:layout_marginStart="15sp"
+        <GridView
+            android:id="@+id/simplegridview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/search" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:horizontalSpacing="20sp"
+            android:listSelector="@android:color/background_dark"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="20sp" />
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_marginStart="15sp"-->
-            <!--android:padding="10sp"-->
-            <!--android:background="#263246"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Description"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textSize="20sp" />-->
     </LinearLayout>
 
-
-
-    <!--<ListView-->
-    <!--android:id="@+id/listview"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:layout_below="@+id/search" />-->
 
 </RelativeLayout>

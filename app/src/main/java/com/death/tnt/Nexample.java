@@ -51,36 +51,36 @@ public class Nexample extends AppCompatActivity {
 
                 Log.i(TAG, "Hello" + loginResult.getAccessToken().getToken());
 //              Toast.makeText(Nexample.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_LONG).show();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    name = user.getDisplayName();
-                    userid = user.getUid();
-                    profilepictureurl = user.getPhotoUrl().toString();
-                    phone = user.getPhoneNumber();
-
-                    DataModule dm = new DataModule();
-                    dm.setName(name);
-                    dm.setUserid(userid);
-                    dm.setProfilepictureurl(profilepictureurl);
-                    dm.setPhone(phone);
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                            .child("user").child(userid);
-                    databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                if (user != null) {
+//                    name = user.getDisplayName();
+//                    userid = user.getUid();
+//                    profilepictureurl = user.getPhotoUrl().toString();
+//                    phone = user.getPhoneNumber();
+//
+//                    DataModule dm = new DataModule();
+//                    dm.setName(name);
+//                    dm.setUserid(userid);
+//                    dm.setProfilepictureurl(profilepictureurl);
+//                    dm.setPhone(phone);
+//                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+//                            .child("user").child(userid);
+//                    databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
 //                            Toast.makeText(Nexample.this, "push Success", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-//                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(Nexample.this, "something went wrong \n Please Try Again", Toast.LENGTH_LONG).show();
-                }
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//
+////                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(Nexample.this, "something went wrong \n Please Try Again", Toast.LENGTH_LONG).show();
+//                }
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -163,6 +163,38 @@ public class Nexample extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential", task.getException());
 //                            Toast.makeText(Nexample.this, "Success",
 //                                    Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                name = user.getDisplayName();
+                                userid = user.getUid();
+                                profilepictureurl = user.getPhotoUrl().toString();
+                                phone = user.getPhoneNumber();
+
+                                DataModule dm = new DataModule();
+                                dm.setName(name);
+                                dm.setUserid(userid);
+                                dm.setProfilepictureurl(profilepictureurl);
+                                dm.setPhone(phone);
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                                        .child("user").child(userid);
+                                databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Nexample.this,DashboardActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+//                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(Nexample.this, "something went wrong \n Please Try Again", Toast.LENGTH_LONG).show();
+                            }
 //                            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
 //                            startActivity(intent);
 
@@ -177,5 +209,28 @@ public class Nexample extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onRestart() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(Nexample.this,DashboardActivity.class);
+            startActivity(intent);
+        }
+        super.onRestart();
+    }
 
+    @Override
+    protected void onResume() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(Nexample.this,DashboardActivity.class);
+            startActivity(intent);
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

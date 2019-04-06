@@ -1,6 +1,9 @@
 package com.death.tnt.home;
 
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -27,16 +30,24 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Check if enabled and if not send user to the GPS settings
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerid);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
-        view_map = (LinearLayout)findViewById(R.id.l1);
-        favourite_place = (LinearLayout)findViewById(R.id.l2);
-        visited_place = (LinearLayout)findViewById(R.id.l3);
-        gallery = (LinearLayout)findViewById(R.id.l4);
-        about = (LinearLayout)findViewById(R.id.l5);
-        exit = (LinearLayout)findViewById(R.id.l6);
-        setSupportActionBar(toolbar);
+        view_map = (LinearLayout) findViewById(R.id.l1);
+        favourite_place = (LinearLayout) findViewById(R.id.l2);
+        visited_place = (LinearLayout) findViewById(R.id.l3);
+        gallery = (LinearLayout) findViewById(R.id.l4);
+        about = (LinearLayout) findViewById(R.id.l5);
+        exit = (LinearLayout) findViewById(R.id.l6);
+//        setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, drawerLayout, toolbar, R.string.open, R.string.close);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -48,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
          * where we will get the current location and show the users
          * the places nearby
          */
-        ft.add(R.id.framelayout,new FirstPage());
+        ft.add(R.id.framelayout, new FirstPage());
         getSupportActionBar().setTitle(R.string.Travel);
         ft.commit();
 
@@ -64,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
                  */
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.framelayout,new ViewMap());
+                ft.replace(R.id.framelayout, new ViewMap());
                 getSupportActionBar().setTitle(R.string.Map);
                 ft.commit();
                 drawerLayout.closeDrawers();
@@ -72,6 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
+
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();

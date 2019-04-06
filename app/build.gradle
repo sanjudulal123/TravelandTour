@@ -20,7 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
 
     implementation 'com.android.support:customtabs:28.0.0-alpha1'
     implementation 'com.android.support:support-vector-drawable:28.0.0-alpha1'
@@ -49,6 +49,16 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
     implementation 'com.mcxiaoke.volley:library:1.0.19'
+
+    implementation 'com.marvinlabs:android-slideshow-widget:0.5.0'
+
+    implementation 'com.marvinlabs:android-slideshow-widget-picasso-plugin:0.5.0'
+
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
+    implementation 'com.android.support:gridlayout-v7:28.0.0'
+
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
