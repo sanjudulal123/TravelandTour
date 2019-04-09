@@ -84,6 +84,15 @@
             android:text="No account yet? Create one"
             android:textColor="@color/com_facebook_blue"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Forgot password ?"
+            android:textColor="@color/com_facebook_blue"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </ScrollView>

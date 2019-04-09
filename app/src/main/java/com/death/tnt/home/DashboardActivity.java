@@ -61,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
          */
         ft.add(R.id.framelayout, new FirstPage());
         getSupportActionBar().setTitle(R.string.Travel);
+        drawerLayout.closeDrawers();
         ft.commit();
 
         view_map.setOnClickListener(new View.OnClickListener() {

@@ -21,6 +21,11 @@ import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;
 
+/**
+ * The replacement of this class is Nexample.java
+ * this class is safe to delete
+ */
+
 public class FacebookLogin extends AppCompatActivity {
     TextView fn,ln,fun;
     ImageView imageView;

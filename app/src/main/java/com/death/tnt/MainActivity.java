@@ -32,6 +32,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+/**
+ * this class is safe to delete
+ */
+
 public class MainActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     LoginButton loginButton;
