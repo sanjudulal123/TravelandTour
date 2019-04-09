@@ -3,6 +3,9 @@ package com.death.tnt;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * this class is used for WelcomeActivity.java
+ */
 public class PrefManager {
     SharedPreferences pref;
     SharedPreferences.Editor editor;

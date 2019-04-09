@@ -42,6 +42,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This class is safe to delete
+ */
 public class Example extends AppCompatActivity {
     // Declaring Variables.
     //for facebook login
