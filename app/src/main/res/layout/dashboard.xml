@@ -50,7 +50,7 @@
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <TextView
-                    android:id="@+id/view_map"
+                    android:id="@+id/home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
@@ -76,7 +76,7 @@
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <TextView
-                    android:id="@+id/favourite_place"
+                    android:id="@+id/registration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
@@ -103,7 +103,7 @@
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <TextView
-                    android:id="@+id/visited_place"
+                    android:id="@+id/upprojects"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
@@ -141,11 +141,11 @@
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <TextView
-                    android:id="@+id/gallery"
+                    android:id="@+id/something"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Gallery"
+                    android:text="Share"
                     android:textColor="#000"
                     android:textSize="15sp" />
             </LinearLayout>

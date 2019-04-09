@@ -27,7 +27,7 @@ public class FirstPage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.first_page, null);
+        View view = inflater.inflate(R.layout.first_page_new, null);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         gridView = (GridView) view.findViewById(R.id.simplegridview);
 
