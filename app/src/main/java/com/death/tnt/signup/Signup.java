@@ -36,7 +36,7 @@ public class Signup extends AppCompatActivity {
     //alert dialog
     AlertDialog alertDialog;
 
-    String firstname,lastname,email,password,userID;
+    String firstname, lastname, email, password, userID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,38 +65,62 @@ public class Signup extends AppCompatActivity {
                         && !TextUtils.isEmpty(email)
                         && !TextUtils.isEmpty(password)
                         && !TextUtils.isEmpty(lastname)) {
-                    progressDialog = new ProgressDialog(Signup.this);
-                    progressDialog.setTitle("Registering...");
-                    progressDialog.setMessage("Please wait...");
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
+                    if (first_name.length() > 5) {
+                        if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
+                            if (password.length() > 6) {
+                                if (last_name.length() > 5) {
 
-                    /**
-                     * create user with email and password using firebase
-                     */
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
+
+                                    progressDialog = new ProgressDialog(Signup.this);
+                                    progressDialog.setTitle("Registering...");
+                                    progressDialog.setMessage("Please wait...");
+                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                    progressDialog.setCancelable(false);
+                                    progressDialog.show();
+
+                                    /**
+                                     * create user with email and password using firebase
+                                     */
+                                    mAuth.createUserWithEmailAndPassword(email, password)
+                                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                                @Override
+                                                public void onSuccess(AuthResult authResult) {
+                                                    progressDialog.dismiss();
+                                                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                                                    userID = currentUser.getUid();
+                                                    databaseReference = FirebaseDatabase
+                                                            .getInstance()
+                                                            .getReference()
+                                                            .child("user").child(userID);
+                                                    postData(databaseReference);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(Signup.this, "Exception : " + e, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+
+                                } else {
                                     progressDialog.dismiss();
-                                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                                    userID = currentUser.getUid();
-                                    databaseReference = FirebaseDatabase
-                                            .getInstance()
-                                            .getReference()
-                                            .child("user").child(userID);
-                                    postData(databaseReference);
+                                    last_name.setError("At least 5 characters");
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Signup.this, "Exception : " + e, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Signup.this, "password must be 6 or more characters", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(Signup.this, "incorrect email", Toast.LENGTH_SHORT).show();
                         }
-                    });
+
+                    } else {
+                        first_name.setError("At least 5 characters");
+                    }
+
 
                 } else {
+
                     btn_signup.setEnabled(false);
                 }
 
@@ -114,12 +138,12 @@ public class Signup extends AppCompatActivity {
         databaseReference.setValue(emailSignupModule).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.e("Database","push failed");
+                Log.e("Database", "push failed");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("Database","Error : "+e);
+                Log.e("Database", "Error : " + e);
             }
         });
     }
