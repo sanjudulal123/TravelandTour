@@ -20,6 +20,7 @@ import com.death.tnt.home.DashboardActivity;
 import com.death.tnt.password.ForgotPassword;
 import com.death.tnt.signup.EmailSignupModule;
 import com.death.tnt.signup.Signup;
+import com.death.tnt.tabHost.ActivityTabHost;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -278,7 +279,7 @@ public class Nexample extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+                                        Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
                                         startActivity(intent);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -310,7 +311,7 @@ public class Nexample extends AppCompatActivity {
     protected void onRestart() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+            Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
             startActivity(intent);
         }
         super.onRestart();
@@ -320,7 +321,7 @@ public class Nexample extends AppCompatActivity {
     protected void onResume() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+            Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
             startActivity(intent);
         }
         super.onResume();
@@ -337,7 +338,7 @@ public class Nexample extends AppCompatActivity {
         SharedPreferences sp2 = getSharedPreferences("LoginState", MODE_PRIVATE);
         boolean mystate = sp2.getBoolean("state", false);
         if (mystate == true) {
-            Intent i = new Intent(Nexample.this, DashboardActivity.class);
+            Intent i = new Intent(Nexample.this, ActivityTabHost.class);
             startActivity(i);
         }
     }

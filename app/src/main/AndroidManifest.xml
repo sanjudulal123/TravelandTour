@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.DashboardActivity"></activity>
+        <activity android:name=".home.DashboardActivity"/>
+        <activity android:name=".tabHost.ActivityTabHost"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".signup.Signup"/>
+        <activity android:name=".tabHost.FirstTabLayout"/>
+        <activity android:name=".tabHost.SecondTabLayout"/>
+        <activity android:name=".tabHost.ThirdTabLayout"/>
+        <activity android:name=".tabHost.FourthTabLayout"/>
 
 
         <meta-data
