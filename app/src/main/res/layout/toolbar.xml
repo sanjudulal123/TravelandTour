@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    android:background="#010A14"
+    android:background="#062747"
     app:titleTextColor="#ffffff"
     xmlns:android="http://schemas.android.com/apk/res/android">
 

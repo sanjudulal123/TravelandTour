@@ -2,6 +2,7 @@
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
+    android:background="#010A14"
     android:layout_height="fill_parent">
 
     <include layout="@layout/toolbar" />
