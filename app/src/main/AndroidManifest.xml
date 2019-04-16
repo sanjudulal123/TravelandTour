@@ -17,13 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".home.DashboardActivity"/>
-        <activity android:name=".tabHost.ActivityTabHost"/>
+        <activity android:name=".password.ForgotPassword"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".signup.Signup"/>
-        <activity android:name=".tabHost.FirstTabLayout"/>
-        <activity android:name=".tabHost.SecondTabLayout"/>
-        <activity android:name=".tabHost.ThirdTabLayout"/>
-        <activity android:name=".tabHost.FourthTabLayout"/>
 
 
         <meta-data

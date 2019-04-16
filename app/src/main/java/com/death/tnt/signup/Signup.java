@@ -2,6 +2,7 @@ package com.death.tnt.signup;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.death.tnt.Nexample;
 import com.death.tnt.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,10 +67,10 @@ public class Signup extends AppCompatActivity {
                         && !TextUtils.isEmpty(email)
                         && !TextUtils.isEmpty(password)
                         && !TextUtils.isEmpty(lastname)) {
-                    if (first_name.length() > 5) {
+                    if (first_name.length() >= 2) {
                         if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
                             if (password.length() > 6) {
-                                if (last_name.length() > 5) {
+                                if (last_name.length() >= 3) {
 
 
                                     progressDialog = new ProgressDialog(Signup.this);
@@ -138,7 +140,9 @@ public class Signup extends AppCompatActivity {
         databaseReference.setValue(emailSignupModule).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.e("Database", "push failed");
+                Log.e("Database", "push success");
+                Intent intent = new Intent(Signup.this, Nexample.class);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

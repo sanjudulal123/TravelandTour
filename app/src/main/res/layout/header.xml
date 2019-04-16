@@ -21,7 +21,6 @@
         android:layout_toRightOf="@+id/headerprofile"
         android:layout_marginStart="30sp"
         android:layout_marginTop="70sp"
-        android:text="Welcome Profilename"
         android:textStyle="italic|bold"
         android:textColor="#ffffff"
         android:textSize="30sp" />

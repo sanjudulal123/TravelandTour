@@ -72,10 +72,17 @@ public class Nexample extends AppCompatActivity {
 
     ArrayList<EmailSignupModule> a1 = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nexample);
+        //checking internet connnection
+//        MainActivity in = new MainActivity();
+//        if (in.isOnline()){
+//            Toast.makeText(in, "code works and the internet is connected", Toast.LENGTH_SHORT).show();
+//        }
+
         /**
          * email and password field
          */
@@ -279,7 +286,7 @@ public class Nexample extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
+                                        Intent intent = new Intent(Nexample.this, DashboardActivity.class);
                                         startActivity(intent);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -311,7 +318,7 @@ public class Nexample extends AppCompatActivity {
     protected void onRestart() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
+            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
             startActivity(intent);
         }
         super.onRestart();
@@ -321,7 +328,7 @@ public class Nexample extends AppCompatActivity {
     protected void onResume() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
+            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
             startActivity(intent);
         }
         super.onResume();
@@ -338,7 +345,7 @@ public class Nexample extends AppCompatActivity {
         SharedPreferences sp2 = getSharedPreferences("LoginState", MODE_PRIVATE);
         boolean mystate = sp2.getBoolean("state", false);
         if (mystate == true) {
-            Intent i = new Intent(Nexample.this, ActivityTabHost.class);
+            Intent i = new Intent(Nexample.this, DashboardActivity.class);
             startActivity(i);
         }
     }
