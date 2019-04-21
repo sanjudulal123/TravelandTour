@@ -14,10 +14,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.death.tnt.DataModule;
 import com.death.tnt.Nexample;
 import com.death.tnt.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,26 +86,41 @@ public class Signup extends AppCompatActivity {
                                     /**
                                      * create user with email and password using firebase
                                      */
+
                                     mAuth.createUserWithEmailAndPassword(email, password)
-                                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                 @Override
-                                                public void onSuccess(AuthResult authResult) {
-                                                    progressDialog.dismiss();
-                                                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                                                    userID = currentUser.getUid();
-                                                    databaseReference = FirebaseDatabase
-                                                            .getInstance()
-                                                            .getReference()
-                                                            .child("user").child(userID);
-                                                    postData(databaseReference);
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (!task.isSuccessful()) {
+                                                        progressDialog.dismiss();
+                                                    } else {
+                                                        progressDialog.dismiss();
+                                                        sendVerificationEmailToUser();
+                                                    }
                                                 }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(Signup.this, "Exception : " + e, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                            });
+
+
+//                                    mAuth.createUserWithEmailAndPassword(email, password)
+//                                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                                                @Override
+//                                                public void onSuccess(AuthResult authResult) {
+//                                                    progressDialog.dismiss();
+//                                                    FirebaseUser currentUser = mAuth.getCurrentUser();
+//                                                    userID = currentUser.getUid();
+//                                                    databaseReference = FirebaseDatabase
+//                                                            .getInstance()
+//                                                            .getReference()
+//                                                            .child("user").child(userID);
+//                                                    postData(databaseReference);
+//                                                }
+//                                            }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            progressDialog.dismiss();
+//                                            Toast.makeText(Signup.this, "Exception : " + e, Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
 
 
                                 } else {
@@ -131,13 +149,50 @@ public class Signup extends AppCompatActivity {
 
     }
 
+    private void sendVerificationEmailToUser() {
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    FirebaseAuth.getInstance().signOut();
+
+
+                    String use = user.getUid();
+                    databaseReference = FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("user").child(use);
+                    postData(databaseReference);
+                    //startActivity(new Intent(Signup.this, Nexample.class));
+                    finish();
+                } else {
+                    progressDialog.dismiss();
+                    //restart this activity
+                    overridePendingTransition(0, 0);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                }
+            }
+        });
+
+    }
+
     public void postData(DatabaseReference databaseReference) {
-        EmailSignupModule emailSignupModule = new EmailSignupModule();
-        emailSignupModule.setFirstname(firstname);
-        emailSignupModule.setLastname(lastname);
-        emailSignupModule.setEmail(email);
-        emailSignupModule.getEmailuserid(userID);
-        databaseReference.setValue(emailSignupModule).addOnSuccessListener(new OnSuccessListener<Void>() {
+        DataModule dataModule = new DataModule();
+        dataModule.setFirstname(firstname);
+        dataModule.setLastname(lastname);
+        dataModule.setEmail(email);
+        dataModule.setUserid(userID);
+        dataModule.setName(firstname + " " + lastname);
+//        EmailSignupModule emailSignupModule = new EmailSignupModule();
+//        emailSignupModule.setFirstname(firstname);
+//        emailSignupModule.setLastname(lastname);
+//        emailSignupModule.setEmail(email);
+//        emailSignupModule.getEmailuserid(userID);
+        databaseReference.setValue(dataModule).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.e("Database", "push success");

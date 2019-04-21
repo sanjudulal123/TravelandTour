@@ -1,21 +1,21 @@
 package com.death.tnt.tabHost;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
+import com.death.tnt.map.ExampleViewMap;
 import com.death.tnt.map.ViewMap;
 import com.death.tnt.slidingTab.Feed;
 import com.death.tnt.slidingTab.Places;
 import com.death.tnt.slidingTab.UserLocation;
 import com.death.tnt.slidingTab.UserProfile;
 
-class MyPagerAdapter extends FragmentStatePagerAdapter {
+public class MyPagerAdapter extends FragmentStatePagerAdapter {
     public MyPagerAdapter(FragmentManager childFragmentManager, FragmentActivity activity) {
         super(childFragmentManager);
+
     }
 
     @Override
@@ -24,32 +24,28 @@ class MyPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new UserLocation();
             case 1:
-                return new Places();
+                /**
+                 * original
+                 * return new ViewMap()
+                 */
+                return new ExampleViewMap();
             case 2:
-                return new Feed();
-            case 3:
-                return new ViewMap();
-            case 4:
                 return new UserProfile();
             default:
                 return null;
         }
+
     }
 
-    @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Location";
+                return "Home";
             case 1:
-                return "Places";
+                return "About";
             case 2:
-                return "Feed";
-            case 3:
-                return "Map";
-            case 4:
-                return "Profile";
+                return "Contact";
             default:
                 return null;
         }
@@ -57,6 +53,6 @@ class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 3;
     }
 }

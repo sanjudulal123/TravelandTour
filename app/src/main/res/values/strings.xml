@@ -2,6 +2,7 @@
     <string name="app_name">TravelandTour</string>
     <string name="facebook_app_id">815341902154248</string>
     <string name="fb_login_protocol_scheme">fb815341902154248</string>
+    <string name="google_places_key">AIzaSyBpubdG5v5wDpnwC3kVF3_YHsLf-i3lYzA</string>
 
     <string name="open">drawer open</string>
     <string name="close">drawer close</string>

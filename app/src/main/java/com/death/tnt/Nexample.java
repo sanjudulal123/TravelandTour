@@ -1,12 +1,17 @@
 package com.death.tnt;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
@@ -47,9 +52,39 @@ import java.util.ArrayList;
 /**
  * this is the main class
  * where login is used
+ *
+ *
+ * to check the internet connection
+ * protected boolean isOnline() {
+ *         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+ *         NetworkInfo netInfo = cm.getActiveNetworkInfo();
+ *         if (netInfo != null && netInfo.isConnected()) {
+ *             return true;
+ *         } else {
+ *             return false;
+ *         }
+ *     }
+ * to generate hashkey for facebook login
+ * try {
+ *             PackageInfo info = getPackageManager().getPackageInfo(
+ *                     "com.death.tnt",
+ *                     PackageManager.GET_SIGNATURES);
+ *             for (Signature signature : info.signatures) {
+ *                 MessageDigest md = MessageDigest.getInstance("SHA");
+ *                 md.update(signature.toByteArray());
+ *                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+ *             }
+ *         } catch (PackageManager.NameNotFoundException e) {
+ *
+ *         } catch (NoSuchAlgorithmException e) {
+ *
+ *         }
+ *
+ *
  */
 
 public class Nexample extends AppCompatActivity {
+    final static int for_permission = 1;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
 
@@ -70,13 +105,23 @@ public class Nexample extends AppCompatActivity {
 
     AlertDialog alertDialog;
 
-    ArrayList<EmailSignupModule> a1 = new ArrayList<>();
+    ArrayList<DataModule> a1 = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nexample);
+
+        /**
+         Run-Time Permission
+         */
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    for_permission);
+        }
         //checking internet connnection
 //        MainActivity in = new MainActivity();
 //        if (in.isOnline()){
@@ -135,54 +180,69 @@ public class Nexample extends AppCompatActivity {
                     /**
                      * now sign in with email and password using firebase
                      */
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    progressDialog.dismiss();
-                                    SharedPreferences sp = getSharedPreferences("LoginState", MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putBoolean("state", true);
-                                    editor.apply();
-                                    databaseReference = FirebaseDatabase
-                                            .getInstance()
-                                            .getReference()
-                                            .child("user")
-                                            .child(userid);
-                                    databaseReference.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot d1 : dataSnapshot.getChildren()) {
-                                                EmailSignupModule m = d1.getValue(EmailSignupModule.class);
-                                                a1.add(m);
-                                            }
-                                            for (int i = 0; i < a1.size(); i++) {
-                                                if (mAuth.getCurrentUser().getUid().equals(a1.get(i).getEmailuserid())) {
-                                                    Log.e("Auth", "called");
-                                                    progressDialog.dismiss();
-                                                    Intent intent = new Intent(Nexample.this, DashboardActivity.class);
-                                                    startActivity(intent);
-                                                    break;
-                                                } else {
-                                                    progressDialog.dismiss();
-                                                }
-                                            }
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            progressDialog.dismiss();
-                                            Log.e("Auth", "cancled");
-                                        }
-                                    });
+
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(Nexample.this, "unsuccessful", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        checkIfEmailVerified();
+                                    }
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Nexample.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            });
+//                    mAuth.signInWithEmailAndPassword(email, password)
+//                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                                @Override
+//                                public void onSuccess(AuthResult authResult) {
+//                                    progressDialog.dismiss();
+//                                    SharedPreferences sp = getSharedPreferences("LoginState", MODE_PRIVATE);
+//                                    SharedPreferences.Editor editor = sp.edit();
+//                                    editor.putBoolean("state", true);
+//                                    editor.apply();
+//                                    databaseReference = FirebaseDatabase
+//                                            .getInstance()
+//                                            .getReference()
+//                                            .child("user")
+//                                            .child(userid);
+//                                    databaseReference.addValueEventListener(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                            for (DataSnapshot d1 : dataSnapshot.getChildren()) {
+//                                                EmailSignupModule m = d1.getValue(EmailSignupModule.class);
+//                                                a1.add(m);
+//                                            }
+//                                            for (int i = 0; i < a1.size(); i++) {
+//                                                if (mAuth.getCurrentUser().getUid().equals(a1.get(i).getEmailuserid())) {
+//                                                    Log.e("Auth", "called");
+//                                                    progressDialog.dismiss();
+//                                                    Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
+//                                                    startActivity(intent);
+//                                                    break;
+//                                                } else {
+//                                                    progressDialog.dismiss();
+//                                                }
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                            progressDialog.dismiss();
+//                                            Log.e("Auth", "cancled");
+//                                        }
+//                                    });
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(Nexample.this, "Login Failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
                 } else {
                     //show Alert Message
@@ -244,6 +304,51 @@ public class Nexample extends AppCompatActivity {
         };
 
 
+    }
+
+    private void checkIfEmailVerified() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (user.isEmailVerified()) {
+            progressDialog.dismiss();
+            finish();
+            databaseReference = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("user")
+                    .child(userid);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d1 : dataSnapshot.getChildren()) {
+//                        EmailSignupModule m = d1.getValue(EmailSignupModule.class);
+                        DataModule dataModule = d1.getValue(DataModule.class);
+                        a1.add(dataModule);
+                    }
+                    for (int i = 0; i < a1.size(); i++) {
+                        if (mAuth.getCurrentUser().getUid().equals(a1.get(i).getUserid())) {
+                            Log.e("Auth", "called");
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(Nexample.this, ActivityTabHost.class);
+                            startActivity(intent);
+                            break;
+                        } else {
+                            Toast.makeText(Nexample.this, "no user Account", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                    Log.e("Auth", "cancled");
+                }
+            });
+        } else {
+            Toast.makeText(this, "Please verify your email First", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+        }
     }
 
 
@@ -353,4 +458,20 @@ public class Nexample extends AppCompatActivity {
     /**
      * Add Method onBackPressed
      */
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case for_permission: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+
+                }
+
+                return;
+            }
+        }
+    }
+
 }

@@ -7,6 +7,61 @@ public class DataModule {
     private String lastname;
     private String profilepictureurl;
     private String phone;
+    private String email;
+    private String photourl;
+    //feed
+    private String caption;
+    private String feedImageURL;
+    private String timestamp;
+    private String feedPhotoDowloadUrl;
+
+    public String getFeedPhotoDowloadUrl() {
+        return feedPhotoDowloadUrl;
+    }
+
+    public void setFeedPhotoDowloadUrl(String feedPhotoDowloadUrl) {
+        this.feedPhotoDowloadUrl = feedPhotoDowloadUrl;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public String getFeedImageURL() {
+        return feedImageURL;
+    }
+
+    public void setFeedImageURL(String feedImageURL) {
+        this.feedImageURL = feedImageURL;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getPhotourl() {
+        return photourl;
+    }
+
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPhone() {
         return phone;

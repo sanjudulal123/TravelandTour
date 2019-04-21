@@ -12,7 +12,7 @@
         android:layout_height="100sp"
         android:layout_marginStart="20sp"
         android:layout_marginTop="70sp"
-        android:background="@drawable/ic_launcher_foreground" />
+        android:background="@drawable/ic_flight_white_48dp" />
 
     <TextView
         android:id="@+id/nameprofile"

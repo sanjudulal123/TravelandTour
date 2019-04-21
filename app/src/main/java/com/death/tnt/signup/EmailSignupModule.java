@@ -4,6 +4,9 @@ public class EmailSignupModule {
     private String emailuserid;
     private String name;
     private String email;
+    private String firstname;
+    private String lastname;
+    private String profilepictureurl;
 
     public String getEmailuserid() {
         return emailuserid;
@@ -17,9 +20,7 @@ public class EmailSignupModule {
         this.email = email;
     }
 
-    private String firstname;
-    private String lastname;
-    private String profilepictureurl;
+
 
     public String getEmailuserid(String userID) {
         return emailuserid;
