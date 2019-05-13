@@ -1,4 +1,4 @@
-package com.death.tnt.slidingTab;
+package com.death.tnt.map;
 
 import android.support.v4.app.Fragment;
 

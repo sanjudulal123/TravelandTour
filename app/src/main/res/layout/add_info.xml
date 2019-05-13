@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@color/com_facebook_blue">
+
+        <EditText
+            android:id="@+id/add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/com_facebook_blue"
+            android:textColorHint="@color/com_facebook_blue"
+            android:typeface="serif" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@color/com_facebook_blue">
+
+        <EditText
+            android:id="@+id/add_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="About you"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/com_facebook_blue"
+            android:textColorHint="@color/com_facebook_blue"
+            android:typeface="serif" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16sp"
+        android:background="@drawable/roundbutton"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:typeface="serif" />
+</LinearLayout>

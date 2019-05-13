@@ -56,7 +56,7 @@ public class FeedAdapter extends BaseAdapter {
         TextView txttimestamp = (TextView)convertView.findViewById(R.id.timestamp);
         TextView txtcaption = (TextView)convertView.findViewById(R.id.txtCaption);
         ImageView feedImage = (ImageView)convertView.findViewById(R.id.feedImage);
-        TextView txtviews = (TextView)convertView.findViewById(R.id.txtViews);
+//        TextView txtviews = (TextView)convertView.findViewById(R.id.txtViews);
 
         //Image
         String profileImageurl = String.valueOf(profilrurl);

@@ -52,35 +52,33 @@ import java.util.ArrayList;
 /**
  * this is the main class
  * where login is used
- *
- *
+ * <p>
+ * <p>
  * to check the internet connection
  * protected boolean isOnline() {
- *         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
- *         NetworkInfo netInfo = cm.getActiveNetworkInfo();
- *         if (netInfo != null && netInfo.isConnected()) {
- *             return true;
- *         } else {
- *             return false;
- *         }
- *     }
+ * ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+ * NetworkInfo netInfo = cm.getActiveNetworkInfo();
+ * if (netInfo != null && netInfo.isConnected()) {
+ * return true;
+ * } else {
+ * return false;
+ * }
+ * }
  * to generate hashkey for facebook login
  * try {
- *             PackageInfo info = getPackageManager().getPackageInfo(
- *                     "com.death.tnt",
- *                     PackageManager.GET_SIGNATURES);
- *             for (Signature signature : info.signatures) {
- *                 MessageDigest md = MessageDigest.getInstance("SHA");
- *                 md.update(signature.toByteArray());
- *                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
- *             }
- *         } catch (PackageManager.NameNotFoundException e) {
- *
- *         } catch (NoSuchAlgorithmException e) {
- *
- *         }
- *
- *
+ * PackageInfo info = getPackageManager().getPackageInfo(
+ * "com.death.tnt",
+ * PackageManager.GET_SIGNATURES);
+ * for (Signature signature : info.signatures) {
+ * MessageDigest md = MessageDigest.getInstance("SHA");
+ * md.update(signature.toByteArray());
+ * Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+ * }
+ * } catch (PackageManager.NameNotFoundException e) {
+ * <p>
+ * } catch (NoSuchAlgorithmException e) {
+ * <p>
+ * }
  */
 
 public class Nexample extends AppCompatActivity {
@@ -380,26 +378,57 @@ public class Nexample extends AppCompatActivity {
                                 profilepictureurl = user.getPhotoUrl().toString();
                                 phone = user.getPhoneNumber();
 
-                                DataModule dm = new DataModule();
+                                final DataModule dm = new DataModule();
                                 dm.setName(name);
                                 dm.setUserid(userid);
                                 dm.setProfilepictureurl(profilepictureurl);
                                 dm.setPhone(phone);
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                                        .child("user").child(userid);
-                                databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                                        .child("user");
+
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Nexample.this, DashboardActivity.class);
-                                        startActivity(intent);
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.child(userid).exists()) {
+                                            Log.e("Old user", "user already present in database");
+                                            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            Log.e("new User","add user to database");
+                                            databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
+
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                                     }
                                 });
+//                                databaseReference.setValue(dm).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(Nexample.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
+//                                        Intent intent = new Intent(Nexample.this, DashboardActivity.class);
+//                                        startActivity(intent);
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(Nexample.this, "" + e, Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
 
 //                    Toast.makeText(Nexample.this, "" + user.getDisplayName(), Toast.LENGTH_LONG).show();
                             } else {

@@ -4,8 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -37,7 +39,6 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             httpURLConnection.connect();
             is = httpURLConnection.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(is));
-
             String line = "";
             stringBuilder = new StringBuilder();
 
@@ -49,6 +50,7 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             data = stringBuilder.toString();
 
         } catch (Exception e) {
+            Log.e("nearby",""+e);
             e.printStackTrace();
         }
 
@@ -69,16 +71,27 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
                 String longitude = locationObj.getString("lng");
 
                 JSONObject nameObj = resultsArray.getJSONObject(i);
-                String name_restaurent = nameObj.getString("name");
+                String name_location = nameObj.getString("name");
                 String vicinity = nameObj.getString("vicinity");
 
                 LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.title(vicinity);
+                markerOptions.title(name_location);
                 markerOptions.position(latLng);
+                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                 gmap.addMarker(markerOptions);
+//                gmap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                    @Override
+//                    public boolean onMarkerClick(Marker marker) {
+//
+//                        return false;
+//                    }
+//                });
+
             }
+
         } catch(Exception e) {
+
             Log.e("exceptiongetnearbyplace",""+e);
         }
     }

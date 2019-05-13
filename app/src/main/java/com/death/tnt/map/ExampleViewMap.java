@@ -1,7 +1,12 @@
 package com.death.tnt.map;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.death.tnt.R;
+import com.death.tnt.ViewMap.ViewOnPage;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,11 +37,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.logging.Logger;
-
 import static android.content.Context.LOCATION_SERVICE;
 
 /**
@@ -42,9 +44,12 @@ import static android.content.Context.LOCATION_SERVICE;
  * https://gist.github.com/enginebai/adcae1f17d3b2114590c
  */
 public class ExampleViewMap extends Fragment {
-    Button satellite, terrain, hybrid, normal, go;
+    //progress dialog
+    ProgressDialog progressDialog;
+    Button go, atms, hotels, view_on_page;
     final static int for_permission = 1;
     SearchView searchView;
+    EditText radius;
     double latitude = 0,
             longitude = 0;
     private int PROXIMITY_RADIUS = 5000;
@@ -73,21 +78,24 @@ public class ExampleViewMap extends Fragment {
             Log.e("play service", "not available");
             Toast.makeText(getActivity(), "Google play services not available", Toast.LENGTH_SHORT).show();
         }
-        satellite = (Button) view.findViewById(R.id.satellite);
-        terrain = (Button) view.findViewById(R.id.terrain);
-        hybrid = (Button) view.findViewById(R.id.hybrid);
-        normal = (Button) view.findViewById(R.id.normal);
+
         searchView = (SearchView) view.findViewById(R.id.search);
         go = (Button) view.findViewById(R.id.go);
         requestQueue = Volley.newRequestQueue(getContext());
+        atms = (Button) view.findViewById(R.id.atms);
+        hotels = (Button) view.findViewById(R.id.hotels);
+        radius = (EditText) view.findViewById(R.id.radius);
+        view_on_page = (Button)view.findViewById(R.id.view_on_page);
+        final String radiustxt = radius.getText().toString();
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapsfragment);
+        final SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapsfragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 getCurrentLocation();
                 gmap = googleMap;
+                googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -95,79 +103,107 @@ public class ExampleViewMap extends Fragment {
                         gmap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title("lat:" + latLng.latitude + "\n" + "lng:" + latLng.longitude));
-//
+                        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));// previous zoom level 12
                     }
                 });
 
             }
         });
-        // Satellite View
-        satellite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gmap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            }
-        });
-        //Terrain View
-        terrain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gmap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-            }
-        });
-        //Hybrid View
-        hybrid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gmap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            }
-        });
-        //Normal View
-        normal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            }
-        });
+
+        if (!radiustxt.isEmpty()) {
+/**
+ * search starts here
+ */
+        //search on click
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getActivity(), "button clicked", Toast.LENGTH_SHORT).show();
+
+
                 String placetxt = "" + searchView.getQuery();
                 try {
 
-                if (ActivityCompat.checkSelfPermission(getActivity()
-                        , Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(getActivity()
-                        , Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(), "Permission not granted", Toast.LENGTH_SHORT).show();
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                gmap.setMyLocationEnabled(true);
-                Location myLocation = gmap.getMyLocation();
-                StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-                stringBuilder.append("location=" + myLocation.getLatitude() + "," + myLocation.getLongitude());
-                stringBuilder.append("&radius=" + 1000);
-                stringBuilder.append("&keyword=" + placetxt);
-                stringBuilder.append("&key" + getResources().getString(R.string.google_places_key));
+                    if (ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Permission not granted", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    locationManager = (LocationManager) getContext()
+                            .getSystemService(LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
+                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                    if (location != null) {
+                        getCurrentLocation();
+                        Log.e("TAG", "GPS is on");
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+                        stringBuilder.append("location=" + latitude + "," + longitude);
+                        stringBuilder.append("&radius=" + radiustxt);
+                        //types or keyword
+                        stringBuilder.append("&keyword=" + placetxt);
+                        stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
 
-                String url = stringBuilder.toString();
+                        String url = stringBuilder.toString();
 
-                Object[] datatransfer = new Object[2];
-                datatransfer[0] = gmap;
-                datatransfer[1] = url;
-                GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces();
-                getNearbyPlaces.execute(datatransfer);
-            } catch (Exception e){
-                    Toast.makeText(getActivity(), ""+e, Toast.LENGTH_LONG).show();
+                        Object[] datatransfer = new Object[2];
+                        datatransfer[0] = gmap;
+                        datatransfer[1] = url;
+                        GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
+                        googlePlacesReadTask.execute(datatransfer);
+//                        GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces();
+//                        getNearbyPlaces.execute(datatransfer);
+                        Log.e("URL", "" + url);
+//                        drawMarker(location);
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Info")
+                                .setMessage("Did you find the places you are looking for?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //show some information
+                                dialog.dismiss();
+                            }
+                        });
+
+                    } else {
+                        //This is what you need:
+                        Log.e("error", "location null");
+                        Toast.makeText(getActivity(), "location null", Toast.LENGTH_SHORT).show();
+                        locationManager.requestLocationUpdates(bestProvider, 1000, 0, (LocationListener) getActivity());
+                    }
+
+//                    getCurrentLocation();
+//                    gmap.setMyLocationEnabled(true);
+//                    Location myLocation = gmap.getMyLocation();
+//                    StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+//                    stringBuilder.append("location=" + myLocation.getLatitude() + "," + myLocation.getLongitude());
+//                    stringBuilder.append("&radius=" + 1000);
+//                    //types or keyword
+//                    stringBuilder.append("&keyword=" + placetxt);
+//                    stringBuilder.append("&key" + getResources().getString(R.string.google_places_key));
+//
+//                    String url = stringBuilder.toString();
+//
+//                    Object[] datatransfer = new Object[2];
+//                    datatransfer[0] = gmap;
+//                    datatransfer[1] = url;
+//                    GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces();
+//                    getNearbyPlaces.execute(datatransfer);
+                } catch (Exception e) {
+                    Log.e("map", "" + e);
+                    Toast.makeText(getActivity(), "" + e, Toast.LENGTH_LONG).show();
                 }
 //                try {
 //                    getCurrentLocation();
@@ -193,6 +229,138 @@ public class ExampleViewMap extends Fragment {
 
             }
         });
+    } else{
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Error!")
+                    .setMessage("please enter the radius" +
+                            "\nyou want to search within" +
+                            "\nand the radius must be in numbers")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        }
+        /**
+         * search ends here
+         */
+
+        //atm click
+        atms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Permission not granted", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    locationManager = (LocationManager) getContext()
+                            .getSystemService(LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
+                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                    if (location != null) {
+                        getCurrentLocation();
+                        Log.e("TAG", "GPS is on");
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+                        stringBuilder.append("location=" + latitude + "," + longitude);
+                        stringBuilder.append("&radius=" + 2000);
+                        //types or keyword
+                        stringBuilder.append("&keyword=atm");
+                        stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
+
+                        String url = stringBuilder.toString();
+
+                        Object[] datatransfer = new Object[2];
+                        datatransfer[0] = gmap;
+                        datatransfer[1] = url;
+                        GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
+                        googlePlacesReadTask.execute(datatransfer);
+                        Log.e("URL", "" + url);
+                    } else {
+                        //This is what you need:
+                        Log.e("error", "location null");
+                        Toast.makeText(getActivity(), "location null", Toast.LENGTH_SHORT).show();
+                        locationManager.requestLocationUpdates(bestProvider, 1000, 0, (LocationListener) getActivity());
+                    }
+                } catch (Exception e) {
+                    Log.e("map", "" + e);
+                    Toast.makeText(getActivity(), "" + e, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        //hotels click
+
+        hotels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(getActivity()
+                            , Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Permission not granted", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    locationManager = (LocationManager) getContext()
+                            .getSystemService(LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
+                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                    if (location != null) {
+                        getCurrentLocation();
+                        Log.e("TAG", "GPS is on");
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+                        stringBuilder.append("location=" + latitude + "," + longitude);
+                        stringBuilder.append("&radius=" + 2000);
+                        //types or keyword
+                        stringBuilder.append("&keyword=hotel");
+                        stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
+
+                        String url = stringBuilder.toString();
+
+                        Object[] datatransfer = new Object[2];
+                        datatransfer[0] = gmap;
+                        datatransfer[1] = url;
+                        GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
+                        googlePlacesReadTask.execute(datatransfer);
+                        Log.e("URL", "" + url);
+                    } else {
+                        //This is what you need:
+                        Log.e("error", "location null");
+                        Toast.makeText(getActivity(), "location null", Toast.LENGTH_SHORT).show();
+                        locationManager.requestLocationUpdates(bestProvider, 1000, 0, (LocationListener) getActivity());
+                    }
+                } catch (Exception e) {
+                    Log.e("map", "" + e);
+                    Toast.makeText(getActivity(), "" + e, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        //view_on_page click listener
+
+        view_on_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ViewOnPage.class);
+            }
+        });
+
 
         return view;
     }
@@ -273,7 +441,7 @@ public class ExampleViewMap extends Fragment {
             LatLng gps = new LatLng(location.getLatitude(), location.getLongitude());
             gmap.addMarker(new MarkerOptions()
                     .position(gps));
-            gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(gps, 12));
+            gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(gps, 10));// previous zoom level 12
         }
 
 

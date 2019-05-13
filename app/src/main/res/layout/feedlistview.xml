@@ -1,47 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_flight_black_48dp"
+        android:layout_margin="16dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginStart="10sp"
-            android:id="@+id/addNP"
-            android:layout_marginBottom="10sp"
-            android:background="@drawable/roundbutton"
-            android:padding="10sp"
-            android:text="Add New Post"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:typeface="serif" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/refresh"
-            android:layout_gravity="right"
-            android:layout_marginStart="10sp"
-            android:layout_marginBottom="10sp"
-            android:background="@drawable/roundbutton"
-            android:padding="10sp"
-            android:text="Refresh"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:typeface="serif" />
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null" />
-
-</LinearLayout>
+</RelativeLayout>

@@ -5,10 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.death.tnt.map.ExampleViewMap;
-import com.death.tnt.map.ViewMap;
 import com.death.tnt.slidingTab.Feed;
-import com.death.tnt.slidingTab.Places;
 import com.death.tnt.slidingTab.UserLocation;
 import com.death.tnt.slidingTab.UserProfile;
 
@@ -28,7 +25,7 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
                  * original
                  * return new ViewMap()
                  */
-                return new ExampleViewMap();
+                return new Feed();
             case 2:
                 return new UserProfile();
             default:

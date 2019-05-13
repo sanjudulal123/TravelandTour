@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +39,18 @@ public class Feed extends Fragment {
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     ListView listView;
-    List<String> arrname = new ArrayList<String>();
-    List<String> arrprofileurl = new ArrayList<String>();
-    List<String> arrfeedurl = new ArrayList<String>();
-    List<String> arrcaption = new ArrayList<String>();
-    Button addNP, refresh;
+    SwipeRefreshLayout swipeRefreshLayout;
+    FloatingActionButton floatingActionButton;
+    //individual array for testing
+//    List<String> arrname = new ArrayList<String>();
+//    List<String> arrprofileurl = new ArrayList<String>();
+//    List<String> arrfeedurl = new ArrayList<String>();
+//    List<String> arrcaption = new ArrayList<String>();
+//    //single array for testing
+//    ArrayList<DataModule> arr = new ArrayList<>();
     ProgressDialog progressDialog;
+    ArrayList<DataModule> a1 = new ArrayList<>();
+    ArrayList<DataModule> a2 = new ArrayList<>();
 
 
     @Nullable
@@ -51,52 +60,45 @@ public class Feed extends Fragment {
         siblingContext = getContext();
         context = getActivity();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userid = user.getUid();
-        databaseReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("user")
-                .child(userid);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                ArrayList<DataModule> arr = new ArrayList<>();
-//                ArrayList<DataModule> arrname = new ArrayList<DataModule>();
-//                ArrayList<DataModule> arrprofileurl = new ArrayList<DataModule>();
-//                ArrayList<DataModule> arrfeedurl = new ArrayList<DataModule>();
-//                ArrayList<DataModule> arrcaption = new ArrayList<DataModule>();
+        final String userid = user.getUid();
+        if (user != null) {
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    DataModule dataModule = ds.getValue(DataModule.class);
-                    String name = dataModule.getName();
-                    String profileURL = dataModule.getProfilepictureurl();
-                    String feedImageUrl = dataModule.getFeedImageURL();
-                    String caption = dataModule.getCaption();
-                    arrname.add(name);
-                    arrprofileurl.add(profileURL);
-                    arrfeedurl.add(feedImageUrl);
-                    arrcaption.add(caption);
+            databaseReference = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("user");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    a1.clear();
+                    a2.clear();
 
-                    Log.e("This is the Error", "Can't convert " +
-                            "object of type java.lang.String" +
-                            " to type com.death.tnt.DataModule");
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                    for (DataSnapshot d1 : dataSnapshot.getChildren()) {
+                        DataModule dataModule = d1.getValue(DataModule.class);
+                        a1.add(dataModule);
+                    }
+
                 }
-                listView = (ListView) view.findViewById(R.id.list);
-                listView.setAdapter(new FeedAdapter(getActivity(), R.layout.feedlistviewitem, arrname, arrprofileurl, arrfeedurl, arrcaption));
+                    listView = (ListView) view.findViewById(R.id.list);
+                    listView.setAdapter(new FeedAdapterExample(getActivity(), R.layout.feedlistviewitem, a1));
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
-        addNP = (Button) view.findViewById(R.id.addNP);
-        refresh = (Button) view.findViewById(R.id.refresh);
+        } else {
+            Toast.makeText(siblingContext, "user not logged in", Toast.LENGTH_SHORT).show();
+        }
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.pullToRefresh);
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
 
 
-        addNP.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(siblingContext, ADDnp.class);
@@ -105,14 +107,16 @@ public class Feed extends Fragment {
         });
 
 
-        refresh.setOnClickListener(new View.OnClickListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(siblingContext, "Refreshed", Toast.LENGTH_SHORT).show();
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
 
         return view;
+
     }
+
 }

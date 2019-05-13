@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.death.tnt.DataModule;
 import com.death.tnt.Nexample;
 import com.death.tnt.R;
+import com.death.tnt.home.DashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,8 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Signup extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -159,12 +163,50 @@ public class Signup extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
 
 
-                    String use = user.getUid();
+                    final String use = user.getUid();
                     databaseReference = FirebaseDatabase
                             .getInstance()
                             .getReference()
-                            .child("user").child(use);
-                    postData(databaseReference);
+                            .child("user");
+
+                    final DataModule dataModule = new DataModule();
+                    dataModule.setFirstname(firstname);
+                    dataModule.setLastname(lastname);
+                    dataModule.setEmail(email);
+                    dataModule.setUserid(userID);
+                    dataModule.setName(firstname + " " + lastname);
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child(use).exists()) {
+                                Log.e("Old user", "user already present in database");
+                                Intent intent = new Intent(Signup.this, DashboardActivity.class);
+                                startActivity(intent);
+                            } else{
+                                Log.e("new User","add user to database");
+                                databaseReference.child(use).setValue(dataModule).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(Signup.this, "push to database and sign in success", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Signup.this, DashboardActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Signup.this, "" + e, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+//                    postData(databaseReference);
                     //startActivity(new Intent(Signup.this, Nexample.class));
                     finish();
                 } else {
@@ -180,30 +222,41 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    public void postData(DatabaseReference databaseReference) {
-        DataModule dataModule = new DataModule();
-        dataModule.setFirstname(firstname);
-        dataModule.setLastname(lastname);
-        dataModule.setEmail(email);
-        dataModule.setUserid(userID);
-        dataModule.setName(firstname + " " + lastname);
+//    public void postData(DatabaseReference databaseReference) {
+//        DataModule dataModule = new DataModule();
+//        dataModule.setFirstname(firstname);
+//        dataModule.setLastname(lastname);
+//        dataModule.setEmail(email);
+//        dataModule.setUserid(userID);
+//        dataModule.setName(firstname + " " + lastname);
 //        EmailSignupModule emailSignupModule = new EmailSignupModule();
 //        emailSignupModule.setFirstname(firstname);
 //        emailSignupModule.setLastname(lastname);
 //        emailSignupModule.setEmail(email);
 //        emailSignupModule.getEmailuserid(userID);
-        databaseReference.setValue(dataModule).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.e("Database", "push success");
-                Intent intent = new Intent(Signup.this, Nexample.class);
-                startActivity(intent);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("Database", "Error : " + e);
-            }
-        });
+//        databaseReference.setValue(dataModule).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                Log.e("Database", "push success");
+//                Intent intent = new Intent(Signup.this, Nexample.class);
+//                startActivity(intent);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.e("Database", "Error : " + e);
+//            }
+//        });
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
-}
+

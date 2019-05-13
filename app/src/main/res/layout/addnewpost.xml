@@ -1,58 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20sp"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/l1"
         android:orientation="horizontal"
         android:weightSum="7">
 
-        <EditText
-            android:id="@+id/caption"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="20sp"
-            android:layout_marginEnd="10sp"
-            android:layout_weight="6" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="6"
+            android:textColorHint="@color/com_facebook_blue">
+
+            <EditText
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Caption"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/com_facebook_blue"
+                android:textColorHint="@color/com_facebook_blue" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <Button
+            android:id="@+id/addphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:id="@+id/addphoto"
-            android:text="add photo" />
+            android:background="@drawable/roundbutton"
+            android:text="add photo"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:id="@+id/l2"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:id="@+id/addNpfeedImage"
-            android:src="@drawable/ic_flight_black_48dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_flight_white_48dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
+        android:layout_below="@+id/l2"
+        android:id="@+id/l3"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginEnd="20sp"
-            android:id="@+id/post"
-            android:text="post" />
+            android:background="@drawable/roundbutton"
+            android:text="post"
+            android:textColor="@color/white" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

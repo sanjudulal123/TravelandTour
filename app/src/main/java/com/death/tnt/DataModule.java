@@ -1,6 +1,7 @@
 package com.death.tnt;
 
 public class DataModule {
+    //user_account
     private String userid;
     private String name;
     private String firstname;
@@ -14,6 +15,34 @@ public class DataModule {
     private String feedImageURL;
     private String timestamp;
     private String feedPhotoDowloadUrl;
+    //user_info
+    private String user_address;
+    private String user_bio;
+    private String user_likes;
+
+    public String getUser_address() {
+        return user_address;
+    }
+
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
+    }
+
+    public String getUser_bio() {
+        return user_bio;
+    }
+
+    public void setUser_bio(String user_bio) {
+        this.user_bio = user_bio;
+    }
+
+    public String getUser_likes() {
+        return user_likes;
+    }
+
+    public void setUser_likes(String user_likes) {
+        this.user_likes = user_likes;
+    }
 
     public String getFeedPhotoDowloadUrl() {
         return feedPhotoDowloadUrl;

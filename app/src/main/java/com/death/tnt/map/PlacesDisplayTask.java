@@ -1,11 +1,12 @@
 package com.death.tnt.map;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.death.tnt.slidingTab.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
@@ -42,9 +43,15 @@ public class PlacesDisplayTask extends AsyncTask<Object, Integer, List<HashMap<S
             double lng = Double.parseDouble(googlePlace.get("lng"));
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
+            String ratings = googlePlace.get("rating");
+            String total_user_ratings = googlePlace.get("user_ratings_total");
+            String open_now = googlePlace.get("open_now");
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
-            markerOptions.title(placeName + " : " + vicinity);
+            markerOptions.title("Name: " + placeName + " : " + vicinity
+                    + "\n" + "rating : " + ratings
+                    + "\n" + "Total User Rating: " + total_user_ratings
+                    + "\n" + "Open now" + open_now);
             gmap.addMarker(markerOptions);
         }
     }
