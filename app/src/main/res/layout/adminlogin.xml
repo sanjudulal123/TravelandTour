@@ -69,52 +69,11 @@
             android:padding="12dp"
             android:text="login"
             android:textColor="#ffffff" />
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login_nouser"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/roundbutton"
-            android:padding="12dp"
-            android:text="continue as guest"
-            android:textColor="#ffffff" />
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20sp" />
 
-        <TextView
-            android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="No account yet ? Create one"
-            android:textColor="@color/com_facebook_blue"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="Forgot password ?"
-            android:textColor="@color/com_facebook_blue"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/admin"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="Admin ?"
-            android:textColor="@color/com_facebook_blue"
-            android:textSize="16sp" />
+
+
+
 
     </LinearLayout>
 </ScrollView>

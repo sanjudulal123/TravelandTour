@@ -32,6 +32,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * This is not working currently
+ * code from
+ * http://learningprogramming.net/mobile/android/find-nearby-places-from-current-location-in-google-maps-with-retrofit/
+ * needs reading
+ */
+
 public class ViewOnPage extends AppCompatActivity {
     private EditText editTextKeyword;
     private Button buttonSearch;

@@ -6,10 +6,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,8 +38,23 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -49,7 +68,7 @@ public class ExampleViewMap extends Fragment {
     Button go, atms, hotels, view_on_page;
     final static int for_permission = 1;
     SearchView searchView;
-    EditText radius;
+    //    EditText radius;
     double latitude = 0,
             longitude = 0;
     private int PROXIMITY_RADIUS = 5000;
@@ -70,6 +89,7 @@ public class ExampleViewMap extends Fragment {
     //flag for WIFi
     boolean isWifiEnabled = false;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,9 +104,9 @@ public class ExampleViewMap extends Fragment {
         requestQueue = Volley.newRequestQueue(getContext());
         atms = (Button) view.findViewById(R.id.atms);
         hotels = (Button) view.findViewById(R.id.hotels);
-        radius = (EditText) view.findViewById(R.id.radius);
-        view_on_page = (Button)view.findViewById(R.id.view_on_page);
-        final String radiustxt = radius.getText().toString();
+//        radius = (EditText) view.findViewById(R.id.radius);
+        view_on_page = (Button) view.findViewById(R.id.view_on_page);
+//        final String radiustxt = radius.getText().toString();
 
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapsfragment);
@@ -99,18 +119,53 @@ public class ExampleViewMap extends Fragment {
                 gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
+
                         gmap.clear();
                         gmap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title("lat:" + latLng.latitude + "\n" + "lng:" + latLng.longitude));
-                        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));// previous zoom level 12
+                        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));// previous zoom level 12
+                        latitude = latLng.latitude;
+                        longitude = latLng.longitude;
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+                            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                            Address obj = addresses.get(0);
+                            String add = obj.getAddressLine(0);
+                            add = add + "\n" + obj.getCountryName();//NP
+                            add = add + "\n" + obj.getAdminArea();//EDR
+                            add = add + "\n" + obj.getLocality();
+                            add = add + "\n" + obj.getLocale();
+                            add = add + "\n" + obj.getSubLocality();
+                            add = add + "\n" + obj.getSubAdminArea();
+                            add = add + "\n" + obj.getFeatureName();
+                            add = add + "\n" + obj.getPremises();
+                            Toast.makeText(getActivity(), "" + add, Toast.LENGTH_SHORT).show();
+                            /**
+                             * if the above code works
+                             * use intent to show the above data in next activity
+                             */
+                            String locality = obj.getLocality();//biratnagar
+                            String adminArea = obj.getAdminArea();//EDR
+//                            String as = obj.getSubAdminArea();//Koshi
+                            String ss = obj.getSubLocality();
+
+                            Log.e("Location12", "" + locality + "\n" + adminArea
+                                    + "\n" + ss);
+
+
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
             }
         });
 
-        if (!radiustxt.isEmpty()) {
+
 /**
  * search starts here
  */
@@ -145,7 +200,7 @@ public class ExampleViewMap extends Fragment {
                         longitude = location.getLongitude();
                         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                         stringBuilder.append("location=" + latitude + "," + longitude);
-                        stringBuilder.append("&radius=" + radiustxt);
+                        stringBuilder.append("&radius=" + 5000);
                         //types or keyword
                         stringBuilder.append("&keyword=" + placetxt);
                         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
@@ -161,21 +216,21 @@ public class ExampleViewMap extends Fragment {
 //                        getNearbyPlaces.execute(datatransfer);
                         Log.e("URL", "" + url);
 //                        drawMarker(location);
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle("Info")
-                                .setMessage("Did you find the places you are looking for?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //show some information
-                                dialog.dismiss();
-                            }
-                        });
+//                        new AlertDialog.Builder(getActivity())
+//                                .setTitle("Info")
+//                                .setMessage("Did you find the places you are looking for?")
+//                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//                                    }
+//                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //show some information
+//                                dialog.dismiss();
+//                            }
+//                        });
 
                     } else {
                         //This is what you need:
@@ -229,24 +284,16 @@ public class ExampleViewMap extends Fragment {
 
             }
         });
-    } else{
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Error!")
-                    .setMessage("please enter the radius" +
-                            "\nyou want to search within" +
-                            "\nand the radius must be in numbers")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-        }
+
         /**
          * search ends here
          */
 
-        //atm click
+        /**
+         atm click
+         */
+
+
         atms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,7 +319,7 @@ public class ExampleViewMap extends Fragment {
                         longitude = location.getLongitude();
                         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                         stringBuilder.append("location=" + latitude + "," + longitude);
-                        stringBuilder.append("&radius=" + 2000);
+                        stringBuilder.append("&radius=" + 5000);
                         //types or keyword
                         stringBuilder.append("&keyword=atm");
                         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
@@ -299,7 +346,10 @@ public class ExampleViewMap extends Fragment {
         });
 
 
-        //hotels click
+        /**
+         * hotels click
+         */
+
 
         hotels.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,7 +376,7 @@ public class ExampleViewMap extends Fragment {
                         longitude = location.getLongitude();
                         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                         stringBuilder.append("location=" + latitude + "," + longitude);
-                        stringBuilder.append("&radius=" + 2000);
+                        stringBuilder.append("&radius=" + 5000);
                         //types or keyword
                         stringBuilder.append("&keyword=hotel");
                         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
@@ -352,12 +402,17 @@ public class ExampleViewMap extends Fragment {
             }
         });
 
-        //view_on_page click listener
+        /**
+         * view_on_page click listener
+         */
+
 
         view_on_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ViewOnPage.class);
+                Toast.makeText(getActivity(), "there's nothing to show", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getActivity(), ViewOnPage.class);
+//                startActivity(intent);
             }
         });
 
@@ -440,8 +495,8 @@ public class ExampleViewMap extends Fragment {
             gmap.clear();
             LatLng gps = new LatLng(location.getLatitude(), location.getLongitude());
             gmap.addMarker(new MarkerOptions()
-                    .position(gps));
-            gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(gps, 10));// previous zoom level 12
+                    .position(gps).title("YOU ARE HERE !"));
+            gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(gps, 14));// previous zoom level 12
         }
 
 

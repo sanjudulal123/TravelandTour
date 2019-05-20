@@ -39,7 +39,14 @@
                 android:id="@+id/maps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maps"
+                android:text="Map"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/maps_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direction"
                 android:textSize="30sp" />
 
             <TextView
@@ -47,6 +54,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tabs"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/fav_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favourite Place"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/vis_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visited Place"
                 android:textSize="30sp" />
 
         </LinearLayout>

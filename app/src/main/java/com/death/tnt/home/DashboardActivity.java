@@ -1,9 +1,6 @@
 package com.death.tnt.home;
 
-import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,22 +10,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.death.tnt.R;
+import com.death.tnt.favourite.FavouritePlace;
 import com.death.tnt.map.ExampleViewMap;
-import com.death.tnt.map.ViewMap;
-import com.death.tnt.slidingTab.Feed;
+import com.death.tnt.photogallery.PhotoGallery;
 import com.death.tnt.tabHost.ActivityTabHost;
+import com.death.tnt.visited.VisitedPlace;
 
 public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
-    TextView tabs,maps;
-    //             favourite_place, visited_place, gallery, about, exit;
+    TextView tabs, maps, gallery, fav_place, visited_place,maps_direction;
     //for hamburger-icon, toggle drawers
     ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -50,9 +45,11 @@ public class DashboardActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         tabs = (TextView) findViewById(R.id.tabs);
+        gallery = (TextView) findViewById(R.id.gallery);
         maps = findViewById(R.id.maps);
-//        favourite_place = (LinearLayout) findViewById(R.id.l2);
-//        visited_place = (LinearLayout) findViewById(R.id.l3);
+        fav_place = (TextView) findViewById(R.id.fav_place);
+        visited_place = (TextView) findViewById(R.id.vis_place);
+        maps_direction = (TextView) findViewById(R.id.maps_direction);
 //        gallery = (LinearLayout) findViewById(R.id.l4);
 //        about = (LinearLayout) findViewById(R.id.l5);
 //        exit = (LinearLayout) findViewById(R.id.l6);
@@ -66,23 +63,96 @@ public class DashboardActivity extends AppCompatActivity {
         /**
          * shows the feed first
          */
-        ft.add(R.id.framelayout, new ExampleViewMap());
+        ft.add(R.id.framelayout, new Home());
         ft.commit();
         drawerLayout.closeDrawers();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Feed");
+        getSupportActionBar().setTitle("Home");
+
+//        maps_direction.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                /**
+//                 * show maps for direction
+//                 */
+//                FragmentManager fm = getSupportFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                ft.replace(R.id.framelayout, new DirectionMaps());
+//                getSupportActionBar().setTitle("Directions");
+//                ft.commit();
+//                drawerLayout.closeDrawers();
+//            }
+//        });
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.framelayout, new ExampleViewMap());
+                ft.commit();
+                drawerLayout.closeDrawers();
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle("Map");
+
+            }
+        });
 
 
         tabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
-                 *
+                 *show tabs
                  */
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.framelayout, new ActivityTabHost());
                 getSupportActionBar().setTitle("Feed");
+                ft.commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 *show gallery
+                 */
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.framelayout, new PhotoGallery());
+                getSupportActionBar().setTitle("Gallery");
+                ft.commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+
+        fav_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * show favourite places in list view
+                 */
+
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.framelayout, new FavouritePlace());
+                getSupportActionBar().setTitle("Favourite Place");
+                ft.commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+
+        visited_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * show Visited places in list view
+                 */
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.framelayout, new VisitedPlace());
+                getSupportActionBar().setTitle("Favourite Place");
                 ft.commit();
                 drawerLayout.closeDrawers();
             }

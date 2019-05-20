@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#DDCFCF"
+    android:layout_height="match_parent"
+    tools:context="com.death.tnt.photogallery.PhotoUploadGallery">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Image to Gallery"
+        android:id="@+id/textview"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/ShowImageView"
+        android:layout_below="@+id/textview"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ButtonChooseImage"
+        android:background="@drawable/roundbutton"
+        android:layout_below="@+id/ShowImageView"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:text="Choose Image"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ImageNameEditText"
+        android:layout_below="@+id/ButtonChooseImage"
+        android:layout_marginTop="20dp"
+        android:hint="Enter Image Name Here"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:background="@drawable/roundbutton"
+        android:layout_height="wrap_content"
+        android:id="@+id/ButtonUploadImage"
+        android:textColor="@color/white"
+        android:layout_below="@+id/ImageNameEditText"
+        android:layout_marginTop="20dp"
+        android:text="Upload image"/>
+
+</RelativeLayout>

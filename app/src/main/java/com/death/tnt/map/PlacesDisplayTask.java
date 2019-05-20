@@ -3,6 +3,7 @@ package com.death.tnt.map;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -35,24 +36,30 @@ public class PlacesDisplayTask extends AsyncTask<Object, Integer, List<HashMap<S
 
     @Override
     protected void onPostExecute(List<HashMap<String, String>> list) {
-        gmap.clear();
-        for (int i = 0; i < list.size(); i++) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            HashMap<String, String> googlePlace = list.get(i);
-            double lat = Double.parseDouble(googlePlace.get("lat"));
-            double lng = Double.parseDouble(googlePlace.get("lng"));
-            String placeName = googlePlace.get("place_name");
-            String vicinity = googlePlace.get("vicinity");
-            String ratings = googlePlace.get("rating");
-            String total_user_ratings = googlePlace.get("user_ratings_total");
-            String open_now = googlePlace.get("open_now");
-            LatLng latLng = new LatLng(lat, lng);
-            markerOptions.position(latLng);
-            markerOptions.title("Name: " + placeName + " : " + vicinity
-                    + "\n" + "rating : " + ratings
-                    + "\n" + "Total User Rating: " + total_user_ratings
-                    + "\n" + "Open now" + open_now);
-            gmap.addMarker(markerOptions);
+        try {
+            gmap.clear();
+            /**
+             * when internet is not connected the list.size() returns null
+             *             needs to be handled
+             */
+
+            for (int i = 0; i < list.size(); i++) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                HashMap<String, String> googlePlace = list.get(i);
+                double lat = Double.parseDouble(googlePlace.get("lat"));
+                double lng = Double.parseDouble(googlePlace.get("lng"));
+                String placeName = googlePlace.get("place_name");
+                String vicinity = googlePlace.get("vicinity");
+//            String ratings = googlePlace.get("rating");
+//            String total_user_ratings = googlePlace.get("user_ratings_total");
+//            String open_now = googlePlace.get("open_now");
+                LatLng latLng = new LatLng(lat, lng);
+                markerOptions.position(latLng);
+                markerOptions.title("Name: " + placeName + " : " + vicinity);
+                gmap.addMarker(markerOptions);
+            }
+        } catch (Exception e) {
+            Log.e("place display task", e.toString());
         }
     }
 }

@@ -20,6 +20,11 @@
         <activity android:name=".password.ForgotPassword"/>
         <activity android:name=".signup.Signup"/>
         <activity android:name=".slidingTab.ADDnp"/>
+        <activity android:name=".ViewMap.ViewOnPage"/>
+        <activity android:name=".photogallery.PhotoUploadGallery"/>
+        <activity android:name=".ADMIN.adminhome.AdminHome"/>
+        <activity android:name=".favourite.ViewFavouriteList"/>
+        <activity android:name=".home.MoreGrid"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -57,6 +62,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 
 </manifest>
