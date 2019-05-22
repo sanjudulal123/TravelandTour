@@ -7,6 +7,15 @@ public class HomeInfoModule {
     private String place_cover_art_url;
     private String place_description;
     private String place_district;
+    private String place_rating;
+
+    public String getPlace_rating() {
+        return place_rating;
+    }
+
+    public void setPlace_rating(String place_rating) {
+        this.place_rating = place_rating;
+    }
 
     public String getPlace_name() {
         return place_name;

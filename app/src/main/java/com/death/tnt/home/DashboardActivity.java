@@ -1,6 +1,11 @@
 package com.death.tnt.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.death.tnt.Nexample;
 import com.death.tnt.R;
 import com.death.tnt.favourite.FavouritePlace;
 import com.death.tnt.map.ExampleViewMap;
@@ -31,14 +37,14 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
-//        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
-//        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//
-//        // Check if enabled and if not send user to the GPS settings
-//        if (!enabled) {
-//            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//            startActivity(intent);
-//        }
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Check if enabled and if not send user to the GPS settings
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerid);
@@ -159,6 +165,20 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Really Exit?")
+//                .setMessage("Are you sure you want to exit?")
+//                .setNegativeButton(android.R.string.no, null)
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//
+//                    public void onClick(DialogInterface arg0, int arg1) {
+//                        DashboardActivity.super.onBackPressed();
+//                    }
+//                }).create().show();
+//    }
 
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

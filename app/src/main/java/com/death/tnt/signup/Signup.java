@@ -18,6 +18,7 @@ import com.death.tnt.DataModule;
 import com.death.tnt.Nexample;
 import com.death.tnt.R;
 import com.death.tnt.home.DashboardActivity;
+import com.death.tnt.home.GridComments;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -175,6 +176,7 @@ public class Signup extends AppCompatActivity {
                     dataModule.setEmail(email);
                     dataModule.setUserid(userID);
                     dataModule.setName(firstname + " " + lastname);
+
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

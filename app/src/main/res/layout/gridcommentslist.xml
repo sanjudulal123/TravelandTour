@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/feed_item_margin"
+        android:layout_marginTop="@dimen/feed_item_margin"
+        android:layout_marginRight="@dimen/feed_item_margin"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/feed_item_padding_top_bottom"
+        android:paddingBottom="@dimen/feed_item_padding_top_bottom">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/feed_item_padding_left_right"
+            android:paddingRight="@dimen/feed_item_padding_left_right">
+
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="@dimen/feed_item_profile_pic"
+                android:layout_height="@dimen/feed_item_profile_pic"
+                android:background="@color/white"
+                android:scaleType="fitCenter"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/feed_item_profile_info_padd">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/feed_item_profile_name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/timestamp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12:00:00"
+                    android:textColor="@color/timestamp"
+                    android:textSize="@dimen/feed_item_timestamp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comments"
+            android:text="Here goes the comments"
+            android:textSize="16sp"
+            android:layout_margin="15sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

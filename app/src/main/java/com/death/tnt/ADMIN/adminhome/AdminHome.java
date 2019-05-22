@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.death.tnt.R;
@@ -46,6 +48,9 @@ public class AdminHome extends AppCompatActivity {
 
     // Creating EditText.
     EditText ImageNameEditText, District_name, placeDescriptionEditText;
+
+    //spinner
+    Spinner placeRating;
 
     // Creating ImageView.
     ImageView SelectImage;
@@ -90,6 +95,13 @@ public class AdminHome extends AppCompatActivity {
         ImageNameEditText = (EditText) findViewById(R.id.ImageNameEditText);
         District_name = (EditText) findViewById(R.id.District_name);
         placeDescriptionEditText = (EditText) findViewById(R.id.placeDescriptionEditText);
+        placeRating = (Spinner) findViewById(R.id.placeRating);
+        String[] items = new String[]{"1", "2", "3", "4", "4.5", "5"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //set the spinners adapter to the previously created one.
+        placeRating.setAdapter(adapter);
+
+
 
         // Assign ID'S to image view.
         SelectImage = (ImageView) findViewById(R.id.ShowImageView);
@@ -172,23 +184,25 @@ public class AdminHome extends AppCompatActivity {
 //                                        @SuppressWarnings("VisibleForTests")
 //                                        ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, uri.toString());
 
+                                            String value = placeRating.getSelectedItem().toString();
 
                                             HomeInfoModule homeInfoModule = new HomeInfoModule();
                                             homeInfoModule.setPlace_cover_art_url(uri.toString());
                                             homeInfoModule.setPlace_description(TempPlaceDesc);
                                             homeInfoModule.setPlace_district(TempDistrict);
                                             homeInfoModule.setPlace_name(TempPlaceName);
+                                            homeInfoModule.setPlace_rating(value);
 
                                             databaseReference = FirebaseDatabase
                                                     .getInstance()
                                                     .getReference()
                                                     .child("home");
-                                                    // Getting image upload ID.
-                                                    String ImageUploadId = databaseReference.push().getKey();
+                                            // Getting image upload ID.
+                                            String ImageUploadId = databaseReference.push().getKey();
 
 
                                             // Adding image upload id s child element into databaseReference.
-                                              databaseReference.child(ImageUploadId).setValue(homeInfoModule);
+                                            databaseReference.child(ImageUploadId).setValue(homeInfoModule);
 
                                         } else {
                                             Toast.makeText(AdminHome.this, "insert descriptions", Toast.LENGTH_SHORT).show();

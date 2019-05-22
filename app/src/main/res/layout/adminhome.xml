@@ -65,15 +65,14 @@
         android:hint="Enter Place Description Here"
         android:textColor="@color/white" />
 
-    <EditText
+    <Spinner
         android:id="@+id/placeRating"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/placeDescriptionEditText"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:hint="rating"
-        android:textColor="@color/white" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <Button
         android:id="@+id/ButtonUploadImage"

@@ -3,6 +3,7 @@ package com.death.tnt;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -490,6 +491,25 @@ public class Nexample extends AppCompatActivity {
 //            startActivity(i);
 //        }
     }
+
+    /**
+     * onBackPressed() method
+     */
+
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Really Exit?")
+//                .setMessage("Are you sure you want to exit?")
+//                .setNegativeButton(android.R.string.no, null)
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//
+//                    public void onClick(DialogInterface arg0, int arg1) {
+//                        Nexample.super.onBackPressed();
+//                    }
+//                }).create().show();
+//    }
+
 
     /**
      * Add Method onBackPressed

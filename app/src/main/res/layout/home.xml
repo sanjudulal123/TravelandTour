@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="600sp"
         android:columnWidth="100dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="24dp"
+        android:gravity="center"
         android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
         android:stretchMode="spacingWidthUniform"
-        />
-
+        android:verticalSpacing="24dp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="MOST VISITED PLACES"-->
+        <!--android:textSize="40sp"-->
+        <!--android:textColor="#000000"-->
+        <!--android:layout_margin="30sp"-->
+        <!--android:id="@+id/t1"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:layout_below="@id/gridview"/>-->
+    <GridView
+        android:id="@+id/gridview1"
+        android:layout_width="match_parent"
+        android:layout_height="600sp"
+        android:columnWidth="100dp"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/gridview"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="spacingWidthUniform"
+        android:verticalSpacing="24dp" />
 </RelativeLayout>

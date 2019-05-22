@@ -216,20 +216,7 @@ public class PhotoUploadGallery extends AppCompatActivity {
                                 }
                             });
 
-//                            // Hiding the progressDialog after done uploading.
-//                            progressDialog.dismiss();
 //
-//                            // Showing toast message after done uploading.
-//                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
-//
-//                            @SuppressWarnings("VisibleForTests")
-//                            ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, taskSnapshot.getStorage().getDownloadUrl().toString());
-//
-//                            // Getting image upload ID.
-//                            String ImageUploadId = databaseReference.push().getKey();
-//
-//                            // Adding image upload id s child element into databaseReference.
-//                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         }
                     })
                     // If something goes wrong .

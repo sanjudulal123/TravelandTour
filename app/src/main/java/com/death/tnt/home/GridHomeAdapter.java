@@ -61,6 +61,7 @@ public class GridHomeAdapter extends BaseAdapter {
         place_district.setText(data.getPlace_district());
         final String place_desc = data.getPlace_description();
         final String place_full_name = data.getPlace_name()+","+data.getPlace_district();
+        final  String place_rating = data.getPlace_rating();
 
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +72,7 @@ public class GridHomeAdapter extends BaseAdapter {
                 bundle.putString("desc",place_desc);
                 bundle.putString("cover_art",image_cover_art_url);
                 bundle.putString("place_full",place_full_name);
+                bundle.putString("place_rating",place_rating);
                 context.startActivity(intent);
             }
         });
