@@ -1,73 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#010A14"
-    android:orientation="vertical">
-
-
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="#ffffff">
 
     <LinearLayout
-        android:id="@+id/l1"
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
-        android:layout_marginTop="15sp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:weightSum="2">
 
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:layout_marginBottom="10sp"
-            android:layout_weight="2"
-            android:background="#606774"
-            android:iconifiedByDefault="false"
-            android:queryHint="search places"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/go"
+        <CheckBox
+            android:id="@+id/one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundbutton"
-            android:text="GO" />
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/seven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+
+        <CheckBox
+            android:id="@+id/eight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="Places_names" />
+        <CheckBox
+            android:id="@+id/nine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:text="And_so_on" />
+
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/l2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/l1"
-        android:layout_margin="15sp">
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linear2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/linear1"-->
+    <!--android:weightSum="2">-->
 
-        <fragment
-            android:id="@+id/mapsfragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <!--<CheckBox-->
+    <!--android:id="@+id/four"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="10sp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Places_names" />-->
 
-    </RelativeLayout>
+    <!--<CheckBox-->
+    <!--android:id="@+id/five"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="10sp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Places_names" />-->
+    <!--</LinearLayout>-->
 
-    <Button
-        android:id="@+id/view_favourite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/l2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="141dp"
-        android:layout_marginTop="637dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="46dp"
-        android:background="@drawable/roundbutton"
-        android:text="View your places"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
-
-
-</RelativeLayout>
+</ScrollView>
