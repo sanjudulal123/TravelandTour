@@ -115,50 +115,53 @@ public class ExampleViewMap extends Fragment {
             public void onMapReady(GoogleMap googleMap) {
                 getCurrentLocation();
                 gmap = googleMap;
-                googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 gmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
-
-                        gmap.clear();
-                        gmap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title("lat:" + latLng.latitude + "\n" + "lng:" + latLng.longitude));
-                        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));// previous zoom level 12
-                        latitude = latLng.latitude;
-                        longitude = latLng.longitude;
-                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                            Address obj = addresses.get(0);
-                            String add = obj.getAddressLine(0);
-                            add = add + "\n" + obj.getCountryName();//NP
-                            add = add + "\n" + obj.getAdminArea();//EDR
-                            add = add + "\n" + obj.getLocality();
-                            add = add + "\n" + obj.getLocale();
-                            add = add + "\n" + obj.getSubLocality();
-                            add = add + "\n" + obj.getSubAdminArea();
-                            add = add + "\n" + obj.getFeatureName();
-                            add = add + "\n" + obj.getPremises();
-                            Toast.makeText(getActivity(), "" + add, Toast.LENGTH_SHORT).show();
-                            /**
-                             * if the above code works
-                             * use intent to show the above data in next activity
-                             */
-                            String locality = obj.getLocality();//biratnagar
-                            String adminArea = obj.getAdminArea();//EDR
-//                            String as = obj.getSubAdminArea();//Koshi
-                            String ss = obj.getSubLocality();
-
-                            Log.e("Location12", "" + locality + "\n" + adminArea
-                                    + "\n" + ss);
-
-
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                            Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
-                        }
+                        //Already two locations
+/**
+//                        gmap.clear();
+//                        gmap.addMarker(new MarkerOptions()
+//                                .position(latLng)
+//                                .title("lat:" + latLng.latitude + "\n" + "lng:" + latLng.longitude));
+//                        gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));// previous zoom level 12
+//                        latitude = latLng.latitude;
+//                        longitude = latLng.longitude;
+//                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+//                        try {
+//                            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+//                            Address obj = addresses.get(0);
+//                            String add = obj.getAddressLine(0);
+//                            add = add + "\n" + obj.getCountryName();//NP
+//                            add = add + "\n" + obj.getAdminArea();//EDR
+//                            add = add + "\n" + obj.getLocality();
+//                            add = add + "\n" + obj.getLocale();
+//                            add = add + "\n" + obj.getSubLocality();
+//                            add = add + "\n" + obj.getSubAdminArea();
+//                            add = add + "\n" + obj.getFeatureName();
+//                            add = add + "\n" + obj.getPremises();
+//                            Toast.makeText(getActivity(), "" + add, Toast.LENGTH_SHORT).show();
+//                            /**
+//                             * if the above code works
+//                             * use intent to show the above data in next activity
+//                             */
+/**
+//                            String locality = obj.getLocality();//biratnagar
+//                            String adminArea = obj.getAdminArea();//EDR
+////                            String as = obj.getSubAdminArea();//Koshi
+//                            String ss = obj.getSubLocality();
+//
+//                            Log.e("Location12", "" + locality + "\n" + adminArea
+//                                    + "\n" + ss);
+//
+//
+//                        } catch (IOException e) {
+//                            // TODO Auto-generated catch block
+//                            e.printStackTrace();
+//                            Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
+//                        }
+                        */
                     }
                 });
 

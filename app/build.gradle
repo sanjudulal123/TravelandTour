@@ -51,7 +51,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
-    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'com.marvinlabs:android-slideshow-widget:0.5.0'
 

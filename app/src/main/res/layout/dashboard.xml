@@ -71,10 +71,10 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/vis_place"
+                android:id="@+id/place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Visited Place"
+                android:text="Place"
                 android:textSize="30sp" />
 
         </LinearLayout>

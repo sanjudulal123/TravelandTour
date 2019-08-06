@@ -81,12 +81,6 @@ public class AdminHome extends AppCompatActivity {
         //get current user Userid
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userid = user.getUid();
-
-//        databaseReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference()
-//                .child("home").child("display");
-
         //Assign ID'S to button.
         ChooseButton = (Button) findViewById(R.id.ButtonChooseImage);
         UploadButton = (Button) findViewById(R.id.ButtonUploadImage);
@@ -219,7 +213,7 @@ public class AdminHome extends AppCompatActivity {
                                 // Hiding the progressDialog.
                                 progressDialog.dismiss();
 
-                                // Showing exception erro message.
+                                // Showing exception error message.
                                 Toast.makeText(AdminHome.this,
                                         exception.getMessage(),
                                         Toast.LENGTH_LONG).show();

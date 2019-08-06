@@ -29,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
-    TextView tabs, maps, gallery, fav_place, visited_place,maps_direction;
+    TextView tabs, maps, gallery, fav_place,place,maps_direction;
     //for hamburger-icon, toggle drawers
     ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         gallery = (TextView) findViewById(R.id.gallery);
         maps = findViewById(R.id.maps);
         fav_place = (TextView) findViewById(R.id.fav_place);
-        visited_place = (TextView) findViewById(R.id.vis_place);
+        place = (TextView) findViewById(R.id.place);
         maps_direction = (TextView) findViewById(R.id.maps_direction);
 //        gallery = (LinearLayout) findViewById(R.id.l4);
 //        about = (LinearLayout) findViewById(R.id.l5);
@@ -149,11 +149,11 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        visited_place.setOnClickListener(new View.OnClickListener() {
+        place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
-                 * show Visited places in list view
+                 * show places in list view
                  */
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
