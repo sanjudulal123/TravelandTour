@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Upload Image to Home"
-        android:textColor="#000000"
+        android:textColor="@color/primary_text"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -22,7 +22,7 @@
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/textview"
-        android:layout_marginTop="20dp" />
+        android:layout_margin="20dp" />
 
     <Button
         android:id="@+id/ButtonChooseImage"
@@ -32,7 +32,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/roundbutton"
         android:text="Choose Image"
-        android:textColor="@color/white" />
+        android:textColor="@color/primary_text" />
 
     <EditText
         android:id="@+id/ImageNameEditText"
@@ -42,7 +42,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint="Name of the place"
-        android:textColor="@color/white" />
+        android:textColor="@color/secondary_text" />
 
     <EditText
         android:id="@+id/District_name"
@@ -52,7 +52,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint="Name of the district"
-        android:textColor="@color/white" />
+        android:textColor="@color/secondary_text" />
 
 
     <EditText
@@ -63,12 +63,14 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint="Enter Place Description Here"
-        android:textColor="@color/white" />
+        android:textColor="@color/secondary_text" />
 
     <Spinner
         android:id="@+id/placeRating"
         android:layout_below="@+id/placeDescriptionEditText"
         android:layout_width="match_parent"
+        android:layout_marginEnd="100sp"
+        android:layout_marginStart="100sp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:background="@android:drawable/btn_dropdown"
@@ -82,6 +84,6 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/roundbutton"
         android:text="Upload image"
-        android:textColor="@color/white" />
+        android:textColor="@color/primary_text" />
 
 </RelativeLayout>

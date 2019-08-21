@@ -70,7 +70,7 @@ public class MoreGrid extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("home")
-                .child(String.valueOf(place_name));
+                .child(place_name.toString());
         final String comments = commentss.getText().toString();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userid = user.getUid();

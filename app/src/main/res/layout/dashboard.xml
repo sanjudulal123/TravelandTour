@@ -31,51 +31,178 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="6">
 
             <include layout="@layout/header"></include>
 
-            <TextView
-                android:id="@+id/maps"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Map"
-                android:textSize="30sp" />
+                android:layout_marginTop="20sp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="12">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="2"
+                    android:src="@drawable/home_black" />
+
+                <TextView
+                    android:id="@+id/home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="8"
+                    android:text="Home"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="2"
+                    android:src="@drawable/map_black" />
+
+                <TextView
+                    android:id="@+id/map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="1"
+                    android:text="Map"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/l3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="2"
+                    android:src="@drawable/directions_black" />
+
+                <TextView
+                    android:id="@+id/direction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="1"
+                    android:text="Direction"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2sp"-->
+            <!--android:background="#000"></View>-->
+            <!--</LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/l4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_weight="2"
+                    android:src="@drawable/places_black" />
+
+                <TextView
+                    android:id="@+id/places"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Places"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_weight="2"
+                    android:src="@drawable/weather_black" />
+
+                <TextView
+                    android:id="@+id/weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Weather"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/l6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="2"
+            android:src="@drawable/home_black" />
 
             <TextView
-                android:id="@+id/maps_direction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Direction"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/tabs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tabs"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gallery"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/fav_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Favourite Place"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Place"
-                android:textSize="30sp" />
+            android:id="@+id/gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_weight="1"
+            android:text="Gallery"
+            android:textColor="#000"
+            android:textSize="15sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.design.widget.NavigationView>

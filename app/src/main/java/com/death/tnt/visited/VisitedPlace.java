@@ -79,6 +79,7 @@ public class VisitedPlace extends Fragment {
                 Toast.makeText(getContext(), "No Internet Connection!", Toast.LENGTH_SHORT).show();
             }
         });
+        //step 5: add stringRequest to RequestQueue
         requestqueue.add(stringRequest);
         return view;
     }

@@ -192,11 +192,15 @@ public class AdminHome extends AppCompatActivity {
                                                     .getReference()
                                                     .child("home");
                                             // Getting image upload ID.
+                                            //use place name instead of push().get(key);
                                             String ImageUploadId = databaseReference.push().getKey();
 
 
                                             // Adding image upload id s child element into databaseReference.
                                             databaseReference.child(ImageUploadId).setValue(homeInfoModule);
+                                            ImageNameEditText.setText("");
+                                            District_name.setText("");
+                                            placeDescriptionEditText.setText("");
 
                                         } else {
                                             Toast.makeText(AdminHome.this, "insert descriptions", Toast.LENGTH_SHORT).show();

@@ -76,6 +76,8 @@ dependencies {
 
     //
     implementation 'com.twotoasters.jazzylistview:library:1.2.1'
+    //image slider
+    //from https://github.com/daimajia/AndroidImageSlider
 
 }
 apply plugin: 'com.google.gms.google-services'

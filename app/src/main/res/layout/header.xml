@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200sp"
-    android:background="#01090A"
+    android:background="@color/primary_dark"
     android:orientation="vertical">
 
     <ImageView
@@ -12,18 +12,33 @@
         android:layout_height="100sp"
         android:layout_marginStart="20sp"
         android:layout_marginTop="70sp"
-        android:background="@drawable/ic_flight_white_48dp" />
+        android:background="@drawable/map_white" />
 
     <TextView
         android:id="@+id/nameprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/headerprofile"
         android:layout_marginStart="30sp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="70sp"
-        android:textStyle="italic|bold"
+        android:layout_toRightOf="@+id/headerprofile"
+        android:text="UserName"
         android:textColor="#ffffff"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/emailprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/headerprofile"
+        android:layout_below="@+id/nameprofile"
+        android:text="email"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="italic" />
 
 
 </RelativeLayout>

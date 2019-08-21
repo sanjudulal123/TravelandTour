@@ -22,47 +22,36 @@
         android:layout_below="@+id/reddit_caption"
         android:layout_marginBottom="10sp" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/reddit_image"
-        android:layout_alignEnd="@+id/reddit_caption"
-        android:layout_alignBottom="@+id/reddit_image"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="174dp"
-        android:layout_marginBottom="142dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reddit_image"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/reddit_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="Score:"
-            android:textSize="20sp" />
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/reddit_image"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:id="@+id/reddit_no_of_comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="Comments:"
-            android:textSize="20sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/reddit_score"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="10sp"-->
+            <!--android:layout_marginTop="10sp"-->
+            <!--android:layout_marginEnd="10sp"-->
+            <!--android:text="Score:"-->
+            <!--android:textSize="20sp" />-->
 
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/reddit_no_of_comments"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="10sp"-->
+            <!--android:layout_marginTop="10sp"-->
+            <!--android:layout_marginEnd="10sp"-->
+            <!--android:text="Comments:"-->
+            <!--android:textSize="20sp" />-->
+
+    <!--</LinearLayout>-->
 
 
 </RelativeLayout>

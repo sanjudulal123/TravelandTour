@@ -55,7 +55,7 @@ public class GridHomeAdapter extends BaseAdapter {
         Button more = (Button)convertView.findViewById(R.id.more);
 
         final String image_cover_art_url = data.getPlace_cover_art_url();
-        Picasso.get().load(image_cover_art_url).into(imageview_cover_art);
+        Picasso.get().load(image_cover_art_url).placeholder(R.drawable.progress_animation).error(R.drawable.ic_warning_black_48dp).into(imageview_cover_art);
 
         place.setText(data.getPlace_name());
         place_district.setText(data.getPlace_district());
@@ -66,14 +66,14 @@ public class GridHomeAdapter extends BaseAdapter {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,MoreGrid.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("place", String.valueOf(place));
-                bundle.putString("desc",place_desc);
-                bundle.putString("cover_art",image_cover_art_url);
-                bundle.putString("place_full",place_full_name);
-                bundle.putString("place_rating",place_rating);
-                context.startActivity(intent);
+//                Intent intent = new Intent(context,MoreGrid.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("place", String.valueOf(place));
+//                bundle.putString("desc",place_desc);
+//                bundle.putString("cover_art",image_cover_art_url);
+//                bundle.putString("place_full",place_full_name);
+//                bundle.putString("place_rating",place_rating);
+//                context.startActivity(intent);
             }
         });
 

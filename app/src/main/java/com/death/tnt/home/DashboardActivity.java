@@ -1,7 +1,6 @@
 package com.death.tnt.home;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -10,16 +9,19 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.death.tnt.Nexample;
 import com.death.tnt.R;
-import com.death.tnt.favourite.FavouritePlace;
+import com.death.tnt.directionmaps.DirectionMaps;
+import com.death.tnt.favourite.Weather;
 import com.death.tnt.map.ExampleViewMap;
 import com.death.tnt.photogallery.PhotoGallery;
 import com.death.tnt.tabHost.ActivityTabHost;
@@ -29,7 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
-    TextView tabs, maps, gallery, fav_place,place,maps_direction;
+    LinearLayout home, map, gallery, weather, places, maps_direction;
     //for hamburger-icon, toggle drawers
     ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -49,62 +51,57 @@ public class DashboardActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerid);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        navigationView = (NavigationView) findViewById(R.id.navigationview);
-        tabs = (TextView) findViewById(R.id.tabs);
-        gallery = (TextView) findViewById(R.id.gallery);
-        maps = findViewById(R.id.maps);
-        fav_place = (TextView) findViewById(R.id.fav_place);
-        place = (TextView) findViewById(R.id.place);
-        maps_direction = (TextView) findViewById(R.id.maps_direction);
-//        gallery = (LinearLayout) findViewById(R.id.l4);
-//        about = (LinearLayout) findViewById(R.id.l5);
-//        exit = (LinearLayout) findViewById(R.id.l6);
         setSupportActionBar(toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigationview);
+        home = (LinearLayout) findViewById(R.id.l1);
+        map = (LinearLayout) findViewById(R.id.l2);
+        maps_direction = (LinearLayout) findViewById(R.id.l3);
+        places = (LinearLayout) findViewById(R.id.l4);
+        weather = (LinearLayout) findViewById(R.id.l5);
+        gallery = (LinearLayout) findViewById(R.id.l6);
         actionBarDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, drawerLayout, toolbar, R.string.open, R.string.close);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        /**
-         * shows the feed first
-         */
+
+
         ft.add(R.id.framelayout, new Home());
         ft.commit();
         drawerLayout.closeDrawers();
-        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.icons));
         getSupportActionBar().setTitle("Home");
-
-//        maps_direction.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                /**
-//                 * show maps for direction
-//                 */
-//                FragmentManager fm = getSupportFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//                ft.replace(R.id.framelayout, new DirectionMaps());
-//                getSupportActionBar().setTitle("Directions");
-//                ft.commit();
-//                drawerLayout.closeDrawers();
-//            }
-//        });
-        maps.setOnClickListener(new View.OnClickListener() {
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.framelayout, new ExampleViewMap());
+                ft.add(R.id.framelayout, new Home());
                 ft.commit();
                 drawerLayout.closeDrawers();
                 setSupportActionBar(toolbar);
-                getSupportActionBar().setTitle("Map");
+                toolbar.setTitleTextColor(R.color.icons);
+                getSupportActionBar().setTitle("Home");
 
+            }
+        });
+        maps_direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.framelayout, new DirectionMaps());
+                setSupportActionBar(toolbar);
+                toolbar.setTitleTextColor(R.color.icons);
+                getSupportActionBar().setTitle("Direction");
+                ft.commit();
+                drawerLayout.closeDrawers();
             }
         });
 
 
-        tabs.setOnClickListener(new View.OnClickListener() {
+        map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
@@ -112,8 +109,9 @@ public class DashboardActivity extends AppCompatActivity {
                  */
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.framelayout, new ActivityTabHost());
-                getSupportActionBar().setTitle("Feed");
+                ft.replace(R.id.framelayout, new ExampleViewMap());
+                toolbar.setTitleTextColor(R.color.icons);
+                getSupportActionBar().setTitle("Map");
                 ft.commit();
                 drawerLayout.closeDrawers();
             }
@@ -121,35 +119,34 @@ public class DashboardActivity extends AppCompatActivity {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 *show gallery
-                 */
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.framelayout, new PhotoGallery());
+                toolbar.setTitleTextColor(R.color.icons);
                 getSupportActionBar().setTitle("Gallery");
                 ft.commit();
                 drawerLayout.closeDrawers();
             }
         });
 
-        fav_place.setOnClickListener(new View.OnClickListener() {
+        weather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
-                 * show favourite places in list view
+                 * show weather in list view
                  */
 
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.framelayout, new FavouritePlace());
-                getSupportActionBar().setTitle("Favourite Place");
+                ft.replace(R.id.framelayout, new Weather());
+                toolbar.setTitleTextColor(R.color.icons);
+                getSupportActionBar().setTitle("Weather");
                 ft.commit();
                 drawerLayout.closeDrawers();
             }
         });
 
-        place.setOnClickListener(new View.OnClickListener() {
+        places.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
@@ -158,27 +155,14 @@ public class DashboardActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.framelayout, new VisitedPlace());
-                getSupportActionBar().setTitle("Favourite Place");
+                toolbar.setTitleTextColor(R.color.icons);
+                getSupportActionBar().setTitle("Places");
                 ft.commit();
                 drawerLayout.closeDrawers();
             }
         });
 
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        new AlertDialog.Builder(this)
-//                .setTitle("Really Exit?")
-//                .setMessage("Are you sure you want to exit?")
-//                .setNegativeButton(android.R.string.no, null)
-//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                        DashboardActivity.super.onBackPressed();
-//                    }
-//                }).create().show();
-//    }
 
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

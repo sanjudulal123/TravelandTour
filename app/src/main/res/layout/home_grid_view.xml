@@ -7,13 +7,14 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/imageview_cover_art"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="200sp"
             android:scaleType="centerCrop" />
 
     </FrameLayout>
@@ -26,7 +27,8 @@
         android:paddingLeft="8dp"
         android:paddingTop="4dp"
         android:paddingRight="8dp"
-        android:textSize="12sp"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp"
         android:textStyle="bold"
         tools:text="Jomsom" />
 
@@ -35,15 +37,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="12sp"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp"
         tools:text="MUSTANG" />
+
     <Button
+        android:id="@+id/more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
         android:background="@drawable/roundbutton"
         android:text="more"
-        android:id="@+id/more"
-        android:textColor="@color/white"
-        android:layout_marginTop="10sp"/>
+        android:textColor="@color/icons" />
 
 </LinearLayout>

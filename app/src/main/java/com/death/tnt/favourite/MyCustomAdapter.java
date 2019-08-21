@@ -51,8 +51,8 @@ public class MyCustomAdapter extends BaseAdapter {
         Button removefromlist = (Button)convertView.findViewById(R.id.remove);
 
         placename.setText(favouriteModule.getPlace());
-        String fav_lat = favouriteModule.getLati().toString();
-        String fav_lng = favouriteModule.getLongi().toString();
+        double fav_lat = favouriteModule.getLati();
+        double fav_lng = favouriteModule.getLongi();
 
         view_in_map.setOnClickListener(new View.OnClickListener() {
             @Override

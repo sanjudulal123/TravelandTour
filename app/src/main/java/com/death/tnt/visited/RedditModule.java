@@ -6,22 +6,22 @@ public class RedditModule {
     private String image_url;
     private String caption;
     private String comment_link;
-    private Integer no_of_comments;
-    private Integer score;
+    private int no_of_comments;
+    private int score;
 
-    public Integer getNo_of_comments() {
+    public int getNo_of_comments() {
         return no_of_comments;
     }
 
-    public void setNo_of_comments(Integer no_of_comments) {
+    public void setNo_of_comments(int no_of_comments) {
         this.no_of_comments = no_of_comments;
     }
 
-    public Integer getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

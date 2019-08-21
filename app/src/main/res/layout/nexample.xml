@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#F0EBEB"
+    android:background="@color/primary_dark"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingTop="56dp"
         android:layout_gravity="center"
         android:paddingRight="24dp">
 
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="72dp"-->
-        <!--android:contentDescription="logo"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="24dp"-->
-        <!--android:src="@drawable/ic_launcher_foreground" />-->
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:contentDescription="logo"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/login" />
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColorHint="@color/com_facebook_blue"
+            android:textColorHint="@color/icons"
             android:layout_marginBottom="8dp">
 
             <EditText
@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/com_facebook_blue"
-                android:textColorHint="@color/com_facebook_blue" />
+                android:textColor="@color/icons"
+                android:textColorHint="@color/icons" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColorHint="@color/com_facebook_blue"
+            android:textColorHint="@color/icons"
             android:layout_marginBottom="8dp">
 
             <EditText
@@ -55,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/com_facebook_blue"
-                android:textColorHint="@color/com_facebook_blue" />
+                android:textColor="@color/icons"
+                android:textColorHint="@color/icons"  />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -68,23 +68,13 @@
             android:background="@drawable/roundbutton"
             android:padding="12dp"
             android:text="login"
-            android:textColor="#ffffff" />
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login_nouser"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/roundbutton"
-            android:padding="12dp"
-            android:text="continue as guest"
-            android:textColor="#ffffff" />
+            android:textColor="@color/icons" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/roundbutton"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20sp" />
 
@@ -95,7 +85,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="No account yet ? Create one"
-            android:textColor="@color/com_facebook_blue"
+            android:textColor="@color/icons"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/forgot_password"
@@ -104,7 +94,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="Forgot password ?"
-            android:textColor="@color/com_facebook_blue"
+            android:textColor="@color/icons"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/admin"
@@ -113,7 +103,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="Admin ?"
-            android:textColor="@color/com_facebook_blue"
+            android:textColor="@color/icons"
             android:textSize="16sp" />
 
     </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,6 +45,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * this is the main class
@@ -95,9 +98,6 @@ public class Nexample extends AppCompatActivity {
     AppCompatButton btn_login;
     TextView link_signup, forgot_password, admin;
 
-    //without account
-    AppCompatButton btn_login_nouser;
-
     //progress dialog
     ProgressDialog progressDialog;
 
@@ -139,7 +139,6 @@ public class Nexample extends AppCompatActivity {
         input_email = (EditText) findViewById(R.id.input_email);
         input_password = (EditText) findViewById(R.id.input_password);
         btn_login = (AppCompatButton) findViewById(R.id.btn_login);
-        btn_login_nouser = (AppCompatButton) findViewById(R.id.btn_login_nouser);
         link_signup = (TextView) findViewById(R.id.link_signup);
         forgot_password = (TextView) findViewById(R.id.forgot_password);
         admin =(TextView)findViewById(R.id.admin);
@@ -152,41 +151,6 @@ public class Nexample extends AppCompatActivity {
             }
         });
 
-
-        /**
-         * btn_login_nouser onClick without creating any temporary account
-         */
-        btn_login_nouser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Nexample.this, "Needs maintainence", Toast.LENGTH_SHORT).show();
-//                final TelephonyManager tm = (TelephonyManager) getBaseContext()
-//                        .getSystemService(Context.TELEPHONY_SERVICE);
-//                final String tmDevice, tmSerial, androidId;
-//                if (ActivityCompat.checkSelfPermission(Nexample.this
-//                        , Manifest.permission.READ_PHONE_STATE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(Nexample.this,
-//                            new String[]{Manifest.permission.READ_PHONE_STATE},
-//                            for_permission);
-//                    // TODO: Consider calling
-//                    //    ActivityCompat#requestPermissions
-//                    // here to request the missing permissions, and then overriding
-//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                    //                                          int[] grantResults)
-//                    // to handle the case where the user grants the permission. See the documentation
-//                    // for ActivityCompat#requestPermissions for more details.
-//                    return;
-//                }
-//                tmDevice = "" + tm.getDeviceId();
-//                tmSerial = "" + tm.getSimSerialNumber();
-//                androidId = "" + android.provider.Settings
-//                        .Secure.getString(getContentResolver()
-//                                , android.provider.Settings.Secure.ANDROID_ID);
-
-
-            }
-        });
 
         /**
          * on clicking forgot_password
@@ -228,6 +192,13 @@ public class Nexample extends AppCompatActivity {
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     progressDialog.setCancelable(false);
                     progressDialog.show();
+
+                    //shared preferences
+                    SharedPreferences sp1 = getSharedPreferences("loginstate", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp1.edit();
+                    editor.putString("email",email);
+                    editor.putString("password",password);
+                    editor.apply();
 
                         /**
                          * now sign in with email and password using firebase
@@ -458,21 +429,16 @@ public class Nexample extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
-//            startActivity(intent);
-//        }
         super.onRestart();
+        SharedPreferences sp2 = getSharedPreferences("loginstate", MODE_PRIVATE);
+        String sharedEmail = sp2.getString("email","");
+        String sharedPassword = sp2.getString("password","");
+        input_email.setText(sharedEmail);
+        input_password.setText(sharedPassword);
     }
 
     @Override
     protected void onResume() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            Intent intent = new Intent(Nexample.this, DashboardActivity.class);
-//            startActivity(intent);
-//        }
         super.onResume();
     }
 
@@ -484,31 +450,18 @@ public class Nexample extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        SharedPreferences sp2 = getSharedPreferences("LoginState", MODE_PRIVATE);
-//        boolean mystate = sp2.getBoolean("state", false);
-//        if (mystate == true) {
-//            Intent i = new Intent(Nexample.this, DashboardActivity.class);
-//            startActivity(i);
-//        }
+        SharedPreferences sp2 = getSharedPreferences("loginstate", MODE_PRIVATE);
+        String sharedEmail = sp2.getString("email","");
+        String sharedPassword = sp2.getString("password","");
+        input_email.setText(sharedEmail);
+        input_password.setText(sharedPassword);
+
     }
 
     /**
      * onBackPressed() method
      */
 
-//    @Override
-//    public void onBackPressed() {
-//        new AlertDialog.Builder(this)
-//                .setTitle("Really Exit?")
-//                .setMessage("Are you sure you want to exit?")
-//                .setNegativeButton(android.R.string.no, null)
-//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                        Nexample.super.onBackPressed();
-//                    }
-//                }).create().show();
-//    }
 
 
     /**

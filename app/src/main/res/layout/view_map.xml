@@ -6,34 +6,15 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/atms"
+        android:id="@+id/view_on_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30sp"
         android:layout_marginTop="100sp"
         android:background="@drawable/roundbutton"
         android:textAllCaps="false"
-        android:text="ATMs" />
-    <Button
-        android:id="@+id/hotels"
-        android:layout_below="@+id/atms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30sp"
-        android:layout_marginTop="10sp"
-        android:background="@drawable/roundbutton"
-        android:textAllCaps="false"
-        android:text="Hotels" />
-    <Button
-        android:id="@+id/view_on_page"
-        android:layout_below="@+id/hotels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30sp"
-        android:layout_marginTop="10sp"
-        android:background="@drawable/roundbutton"
-        android:textAllCaps="false"
-        android:text="View on Page" />
+        android:text="List View" />
+
 
     <LinearLayout
         android:id="@+id/l1"
@@ -50,7 +31,7 @@
             android:layout_marginEnd="10sp"
             android:layout_marginBottom="10sp"
             android:layout_weight="2"
-            android:background="#606774"
+            android:background="#Ffffff"
             android:iconifiedByDefault="false"
             android:queryHint="for eg: Hospital, Bank, etc."
             android:textSize="20sp" />
