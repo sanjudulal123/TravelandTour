@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +42,6 @@ public class Places extends Fragment {
         String latitude = "";
         String longitude = "";
         String reference = "";
-
         try {
             if (!googlePlaceJson.isNull("name")) {
                 placeName = googlePlaceJson.getString("name");
