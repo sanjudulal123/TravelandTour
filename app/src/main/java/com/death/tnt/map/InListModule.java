@@ -77,8 +77,6 @@ public class InListModule {
         this.status = status;
     }
 
-
-
     public String getName() {
         return name;
     }
@@ -86,10 +84,7 @@ public class InListModule {
     public void setName(String name) {
         this.name = name;
     }
-
-
-
-
+    
     public String getLocation() {
         return location;
     }
