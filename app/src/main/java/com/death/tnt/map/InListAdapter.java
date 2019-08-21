@@ -88,7 +88,6 @@ public class InListAdapter extends BaseAdapter {
         } else {
             open_now.setText("State : Closed");
         }
-
         return view;
     }
 }
