@@ -181,12 +181,9 @@ public class ExampleViewMap extends Fragment {
          * search ends here
          */
 
-
         /**
          * view_on_page click listener
          */
-
-
         list_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,22 +231,11 @@ public class ExampleViewMap extends Fragment {
                             editor.putFloat("lat", lat11);
                             editor.putFloat("lng", lon11);
                             editor.apply();
-//                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//                            prefs.edit().putFloat("lat",lat11).apply();
-//                            prefs.edit().putFloat("lng",lon11).apply();
-
-
                             Intent intent = new Intent(getActivity(), InListView.class);
                             intent.putExtra("iurl", url);
                             intent.putExtra("lat1", lat1);
                             intent.putExtra("lon1", lon1);
                             startActivity(intent);
-//                            Object[] datatransfer = new Object[2];
-//                            datatransfer[0] = gmap;
-//                            datatransfer[1] = url;
-//                            GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
-//                            googlePlacesReadTask.execute(datatransfer);
-//                            Log.e("URL", "" + url);
 
                         } else {
                             //This is what you need:
@@ -268,7 +254,6 @@ public class ExampleViewMap extends Fragment {
                 }
             }
         });
-
 
         return view;
     }
@@ -332,9 +317,6 @@ public class ExampleViewMap extends Fragment {
                     }
                 }
             }
-//            if (location != null) {
-//                drawMarker(location);
-//            }
         }//try closed
         catch (Exception e) {
             Log.e("ex",""+e);
