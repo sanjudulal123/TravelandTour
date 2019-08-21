@@ -1,2 +1,2 @@
 # TravelandTour
-seventh semester project
+# College Project
