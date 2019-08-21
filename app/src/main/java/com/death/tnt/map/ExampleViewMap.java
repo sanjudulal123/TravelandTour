@@ -169,6 +169,7 @@ public class ExampleViewMap extends Fragment {
                     }
 
                 } catch (Exception e) {
+                    pDialog.dismiss();
                     Log.e("map", "" + e);
                     Toast.makeText(getActivity(), "" + e, Toast.LENGTH_LONG).show();
                 }
