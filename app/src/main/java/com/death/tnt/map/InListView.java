@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class InListView extends AppCompatActivity {
     Button search;
     ListView inlistview;
-    //step 1: definng a RequestQueue
+    //step 1: defining a RequestQueue
     RequestQueue requestqueue;
     ArrayList<InListModule> listdata = new ArrayList<>();
     ProgressDialog pDialog;
