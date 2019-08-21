@@ -5,20 +5,16 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
-
         <ImageView
             android:id="@+id/imageview_cover_art"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="200sp"
             android:scaleType="centerCrop" />
-
     </FrameLayout>
-
     <TextView
         android:id="@+id/place"
         android:layout_width="wrap_content"
