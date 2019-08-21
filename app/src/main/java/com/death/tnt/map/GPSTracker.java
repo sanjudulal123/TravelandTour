@@ -75,7 +75,6 @@ public class GPSTracker extends Service implements LocationListener {
         this.mContext = context;
         getLocation();
     }
-
     /**
      * Try to get my current location by GPS or Network Provider
      */
