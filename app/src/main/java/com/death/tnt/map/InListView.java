@@ -57,16 +57,16 @@ public class InListView extends AppCompatActivity {
                     Log.e("IURL",url);
                     JSONObject first = new JSONObject(response);
                     String status = first.getString("status");
-                    if (status == "OVER_QUERY_LIMIT") {
+                    if (status.equals("OVER_QUERY_LIMIT")) {
                         pDialog.dismiss();
                         Toast.makeText(InListView.this, "Query Limit has been reached", Toast.LENGTH_SHORT).show();
-                    } else if (status == "ZERO_RESULTS") {
+                    } else if (status.equals("ZERO_RESULTS")) {
                         pDialog.dismiss();
                         Toast.makeText(InListView.this, "No results found for your search", Toast.LENGTH_SHORT).show();
-                    } else if (status == "INVALID_REQUEST") {
+                    } else if (status.equals("INVALID_REQUEST")) {
                         pDialog.dismiss();
                         Toast.makeText(InListView.this, "invalid request", Toast.LENGTH_SHORT).show();
-                    } else if(status == "OK"){
+                    } else if(status.equals("OK")){
                         pDialog.dismiss();
                     JSONArray resultsarray = first.getJSONArray("results");
                     for (int i = 0; i < resultsarray.length(); i++) {
